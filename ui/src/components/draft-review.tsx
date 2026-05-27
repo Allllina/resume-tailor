@@ -1,6 +1,15 @@
-import { useEffect, useState } from "react";
-import type { ReactNode } from "react";
-import { ChevronRight, Copy, Download, ExternalLink, Loader2, Send } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import {
+  ChevronRight,
+  Copy,
+  Download,
+  ExternalLink,
+  Loader2,
+  PanelRightClose,
+  PanelRightOpen,
+  Send,
+} from "lucide-react";
 import { ChangeCard } from "@/components/change-card";
 import { DegradedSubstanceBanner } from "@/components/degraded-substance-banner";
 import { SubSkillErrorBanner } from "@/components/SubSkillErrorBanner";
@@ -119,6 +128,15 @@ function RunReviewWorkspace({
 }) {
   const [diagnosisOpen, setDiagnosisOpen] = useState(false);
   const [rewriteOpen, setRewriteOpen] = useState(true);
+  // Preview pane: collapsible (desktop) + resizable split. leftPct is the
+  // diagnosis/verify column width as a % of the workspace (desktop only;
+  // panels stack on mobile). Resize + collapse are desktop power-features.
+  const [previewCollapsed, setPreviewCollapsed] = useState(false);
+  const [leftPct, setLeftPct] = useState(42);
+  const [dragging, setDragging] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef(false);
+
   const cards = data?.change_cards ?? [];
   const claimsLabel =
     data?.verdict === "partial_pending_user" ? "Needs claim decisions" : "No claim gate";
@@ -126,9 +144,41 @@ function RunReviewWorkspace({
     data?.match_scores?.resume_match_score ?? data?.fit_diagnosis_post_rewrite?.hrbp?.keyword_hit_rate,
   );
 
+  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    draggingRef.current = true;
+    setDragging(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const pct = ((e.clientX - rect.left) / rect.width) * 100;
+    setLeftPct(Math.min(72, Math.max(28, pct)));
+  };
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    draggingRef.current = false;
+    setDragging(false);
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {
+      /* pointer already released */
+    }
+  };
+
   return (
-    <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(360px,40%)_minmax(0,60%)]">
-      <section className="min-h-0 overflow-auto border-r border-border px-6 py-5">
+    <div
+      ref={containerRef}
+      className={`flex min-h-0 flex-1 flex-col lg:flex-row ${dragging ? "select-none" : ""}`}
+      style={{ "--left-w": `${leftPct}%` } as CSSProperties}
+    >
+      <section
+        className={
+          previewCollapsed
+            ? "min-h-0 w-full overflow-auto px-6 py-5"
+            : "min-h-0 w-full overflow-auto border-b border-border px-6 py-5 lg:w-[var(--left-w)] lg:border-b-0"
+        }
+      >
         <SubSkillErrorBanner events={data?.degradation_events ?? []} />
         <CollapsibleSection
           eyebrow="Step 1"
@@ -178,8 +228,58 @@ function RunReviewWorkspace({
         </CollapsibleSection>
       </section>
 
-      <section className="min-h-0 overflow-auto bg-card/30 px-7 py-5">
+      {/* Draggable divider — desktop only, only when preview is expanded */}
+      {!previewCollapsed ? (
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="Resize panels"
+          onPointerDown={startDrag}
+          onPointerMove={onDrag}
+          onPointerUp={endDrag}
+          className="group relative hidden w-1.5 shrink-0 cursor-col-resize touch-none border-l border-border bg-border/40 transition-colors hover:bg-primary/30 lg:block"
+        >
+          <span
+            aria-hidden
+            className="absolute left-1/2 top-1/2 h-9 w-0.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-border transition-colors group-hover:bg-primary/60"
+          />
+        </div>
+      ) : null}
+
+      {/* RIGHT: expanded preview, or a thin "show preview" rail (desktop) */}
+      {previewCollapsed ? (
+        <button
+          type="button"
+          onClick={() => setPreviewCollapsed(false)}
+          aria-label="Show preview"
+          title="Show preview"
+          className="hidden shrink-0 flex-col items-center justify-center gap-2 border-l border-border bg-card/30 px-2 py-4 text-[11px] font-medium text-muted-foreground transition hover:bg-card/60 hover:text-foreground lg:flex"
+        >
+          <PanelRightOpen className="h-4 w-4" />
+          <span className="[writing-mode:vertical-rl]">Preview</span>
+        </button>
+      ) : null}
+
+      <section
+        className={
+          previewCollapsed
+            ? "min-h-0 overflow-auto bg-card/30 px-7 py-5 lg:hidden"
+            : "min-h-0 flex-1 overflow-auto bg-card/30 px-7 py-5"
+        }
+      >
         <div className="mx-auto max-w-3xl">
+          <div className="mb-3 hidden justify-end lg:flex">
+            <button
+              type="button"
+              onClick={() => setPreviewCollapsed(true)}
+              aria-label="Collapse preview"
+              title="Collapse preview"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-card px-2.5 text-[11px] font-medium text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+            >
+              <PanelRightClose className="h-3.5 w-3.5" />
+              Collapse
+            </button>
+          </div>
           <TexPreview draftId={draftId} artifactAvailable={data ? hasTexArtifact(data) : undefined} embedded />
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { DraftReview } from "@/components/draft-review";
 import { FloatingComposer } from "@/components/floating-composer";
 
@@ -17,12 +17,8 @@ function RunPage() {
 
   return (
     <>
-      <header className="mx-auto max-w-2xl px-6 pt-8 pb-4">
-        <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition">
-          ← Inbox
-        </Link>
-      </header>
-
+      {/* Back-to-Inbox lives in the DraftReview toolbar header — no separate
+          header here (avoids a duplicate Inbox link). */}
       <DraftReview draftId={id} />
 
       <FloatingComposer />
