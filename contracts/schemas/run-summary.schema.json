@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/run-summary.schema.json",
+  "title": "Run Summary",
+  "description": "Compact representation of one tailoring run for list/inbox views. Derived from data/runs/<run_id>/state.json on backend; served by GET /api/runs.",
+  "type": "object",
+  "required": ["run_id", "created_at", "verdict", "ui_status"],
+  "properties": {
+    "run_id": { "type": "string", "format": "uuid" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "verdict": {
+      "type": "string",
+      "enum": ["complete", "partial_pending_user", "failed", "degraded_to_manual", "degraded_no_substance", "user_aborted"]
+    },
+    "ui_status": {
+      "type": "string",
+      "enum": ["ready", "verify", "needs_rewrite", "blocked", "submitted", "pending_human_verify", "degraded_no_substance"],
+      "description": "Pre-computed status for UI rendering. Wave 4 Step A: prefers confidence_tier when match_scores present. needs_rewrite indicates Tier 2/3 deep rewrite would help. Wave 4 D.5: pending_human_verify means Pass 3 flagged unsourced claims and the user must decide per-claim (approve / reject / edit) before submit; degraded_to_manual stays on verify (operator-side fallback, no per-claim breakdown to act on). Gate 1 (v0.6.1, R-18): degraded_no_substance means the run completed without exception but failed the substance floor (<3 of 5 LLM-driven sub-skills produced non-fallback output OR <2 change_cards OR no LLM-driven change_card). UI must surface a banner explaining which sub-skills fell back and disable Submit; this is distinct from `failed` (hard crash) and `verify` (operator caution)."
+    },
+    "primary_lens": {
+      "type": "string",
+      "enum": ["A_strategy_research", "B_data_analytics", "C_product_ops", "D_finance_markets", "HC_human_capital"]
+    },
+    "role_title_hint": { "type": "string" },
+    "company_hint": { "type": "string" },
+    "location_hint": { "type": "string" },
+    "narration": {
+      "type": "string",
+      "description": "Short first-person sentence summarizing the run (e.g. 'I tailored this 2 min ago. C 产品运营 lens, 3 项目命中 AIGC.'). Backend generates from the run's events array. Used directly as DraftCard.narration."
+    },
+    "degradation_count": { "type": "integer", "minimum": 0 },
+    "confidence_tier": {
+      "type": "string",
+      "enum": ["ready_to_go", "review_recommended", "needs_deep_rewrite"],
+      "description": "Per ARCHITECTURE.md §7a 3-tier verdict. Computed in repl/loop.py via tier1/verdict_scorer.score_run from resume_match_score + degradation_events + lens routing confidence. UI renders as a colored badge (green / yellow / red). Until Wave 4's Pass A→B→C selector ships, this is a closed-form approximation; method='tier1_approximation' in the full match_scores dict on the run-detail endpoint."
+    },
+    "resume_match_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Mean over user's experiences of vertical_fit_per_lens[primary_lens] mapped to Cat-points (core=100, adjacent=75, weak=40, missing=0). 0..100 scale per ARCHITECTURE.md §7b."
+    },
+    "lifecycle_state": {
+      "type": "string",
+      "enum": ["tailored", "applied", "oa", "interview", "rejected", "offer", "archived", "dismissed"],
+      "description": "Current job lifecycle state per ARCHITECTURE.md §6 + Wave 4 Step C state machine. Surfaced from state.lifecycle.current_state. Defaults to 'tailored' for runs with verdict=complete."
+    }
+  },
+  "additionalProperties": false
+}

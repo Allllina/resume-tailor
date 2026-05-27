@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/pass3-verifier-io.schema.json",
+  "title": "Pass 3 Verifier I/O",
+  "description": "Sprint contract for Pass 3 source-grounding verifier agent (Wave 2). Per docs/plans/2026-04-27-agentify-with-harness.md 阶段一. Strict — agent output must validate against this schema before being accepted.",
+  "type": "object",
+  "oneOf": [
+    {
+      "title": "Pass 3 Input",
+      "type": "object",
+      "required": ["bullets", "source_files", "rubric_path"],
+      "properties": {
+        "bullets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "text", "claimed_facts"],
+            "properties": {
+              "id": { "type": "string" },
+              "text": { "type": "string" },
+              "claimed_facts": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Atomic claims extracted from bullet by upstream parser"
+              },
+              "experience_ref": {
+                "type": "string",
+                "description": "experience_id from index.json"
+              }
+            }
+          }
+        },
+        "source_files": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Paths to raw experience files + user-profile + speedlearn-whitelist"
+        },
+        "rubric_path": {
+          "type": "string",
+          "description": "Path to truthfulness-checklist.json (Wave 0+ JSONified rubric)"
+        }
+      }
+    },
+    {
+      "title": "Pass 3 Output (per bullet)",
+      "type": "object",
+      "required": ["bullet_id", "verdict", "verified_facts", "unsourced_claims"],
+      "properties": {
+        "bullet_id": { "type": "string" },
+        "verdict": {
+          "type": "string",
+          "enum": ["complete", "partial", "failed"],
+          "description": "complete = all facts verified; partial = some unsourced but actionable; failed = unrecoverable"
+        },
+        "verified_facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["claim", "source"],
+            "properties": {
+              "claim": { "type": "string" },
+              "source": {
+                "type": "string",
+                "description": "e.g., '01-kearney.md § 项目 1 第二层'"
+              },
+              "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        },
+        "unsourced_claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["claim", "action"],
+            "properties": {
+              "claim": { "type": "string" },
+              "action": {
+                "type": "string",
+                "enum": ["remove", "mark_TBD", "ask_user"]
+              },
+              "rationale": { "type": "string" }
+            }
+          }
+        },
+        "ask_user": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["question", "context"],
+            "properties": {
+              "question": { "type": "string" },
+              "context": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

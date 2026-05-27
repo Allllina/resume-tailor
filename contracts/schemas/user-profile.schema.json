@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/user-profile.schema.json",
+  "title": "User Profile",
+  "description": "Per-user profile snapshot persisted at data/users/{user_id}/profile.json. Wave 2.7 multi-user foundation. user_id is a client-generated UUID stored in browser localStorage.",
+  "type": "object",
+  "required": ["user_id", "created_at", "candidate_names"],
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^[a-z0-9-]{3,40}$",
+      "description": "UUID v4 OR slug (e.g. 'default' for the seeded migration user)."
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "last_updated": { "type": "string", "format": "date-time" },
+    "candidate_names": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "All names this candidate goes by (CN + EN). Used by PII filter at request time so the resume's own surface name is not redacted."
+    },
+    "master_format": {
+      "type": "string",
+      "enum": ["md", "tex", "docx", "pdf"],
+      "description": "Original format of the uploaded resume. master.tex on disk is always .tex (.md/.docx/.pdf converted at upload time)."
+    },
+    "master_uploaded_at": { "type": "string", "format": "date-time" },
+    "master_parse_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence of upload-time parser. 1.0 for native .tex passthrough; ~0.85 for .docx; ~0.6 for .pdf (warn user). md = 0.95."
+    },
+    "experience_count": { "type": "integer", "minimum": 0 },
+    "experiences_scored_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "How many experiences have completed auto-scoring. Setup wizard waits for this == experience_count before enabling 'I am ready' button."
+    },
+    "target_market_default": {
+      "type": "string",
+      "enum": ["north-america", "mainland-china", "hong-kong"],
+      "description": "User's default target market — pre-selected in FloatingComposer market picker. Editable in /settings."
+    },
+    "target_lens_default": {
+      "type": "string",
+      "enum": [
+        "A_strategy_research",
+        "B_data_analytics",
+        "C_product_ops",
+        "D_finance_markets",
+        "HC_human_capital"
+      ],
+      "description": "Primary target direction. Multi-lens onboarding (Wave 4 C.1) — user picks one primary direction at setup; per-direction master.tex variants are generated for it."
+    },
+    "target_lens_secondary": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "A_strategy_research",
+          "B_data_analytics",
+          "C_product_ops",
+          "D_finance_markets",
+          "HC_human_capital"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Additional target directions, may be empty. Multi-lens onboarding (Wave 4 C.1)."
+    },
+    "master_kind": {
+      "type": "string",
+      "enum": ["full", "tailored_for_lens", "mixed"],
+      "description": "What the user said about their uploaded master.tex: full = general resume; tailored_for_lens = previously-tailored for one direction; mixed = uncertain."
+    },
+    "masters_generated": {
+      "type": "object",
+      "description": "Per-lens generation log. Key = lens enum value; value = {generated_at, method}. Multi-lens onboarding (Wave 4 C.1).",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "generated_at": { "type": "string", "format": "date-time" },
+          "method": {
+            "type": "string",
+            "enum": ["user_upload", "rewrite_from_upload_and_bank"]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

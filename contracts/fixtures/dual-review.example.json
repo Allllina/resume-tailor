@@ -1,0 +1,59 @@
+{
+  "_method": "llm",
+  "competitiveness_rating": "above_mid",
+  "hm": {
+    "highlights": [
+      "Owned a payments surface end-to-end at Stripe — directly relevant to our subscription stack",
+      "Cross-functional leadership across 4+ teams documented per launch, not just claimed",
+      "Strong technical writing — RFCs surfaced in experience bank are spec-grade"
+    ],
+    "concerns": [
+      "Applied-ML rigor is unclear; 'data-informed PM' framing might be aspirational vs evidenced",
+      "No senior-to-VP stakeholder ownership shown directly — could be a stretch for our exec layer"
+    ],
+    "comparison_risk": "Loses to candidates with direct payments-platform PM experience at our scale (10x larger SKU set). Wins on cross-functional rigor."
+  },
+  "hrbp": {
+    "keyword_hit_rate": 0.74,
+    "hard_filter_match": {
+      "degree": "match",
+      "language": "match",
+      "location": "uncertain",
+      "timing": "match"
+    },
+    "advance_decision": "push_with_note",
+    "decision_rationale": "Above the bar on the top 4 priorities and matches all hard filters except location ambiguity. Note for the HM: probe ML depth and international scope in interview."
+  },
+  "improvement_suggestions": [
+    {
+      "text": "Move the Stripe payments bullet to the top of the experience block — it's the strongest signal for this JD",
+      "effort": "wording"
+    },
+    {
+      "text": "Re-frame 'feature impact analysis' bullets as 'A/B testing & experimentation' to hit the JD's vocabulary",
+      "effort": "wording"
+    },
+    {
+      "text": "Surface SQL + dashboard literacy explicitly in the Skills section — currently only implied",
+      "effort": "wording"
+    },
+    {
+      "text": "Add a 1-line side project showing applied ML literacy (LLM evals, recsys experiment, etc.) to close the Tier 3 gap",
+      "effort": "supplement_project"
+    },
+    {
+      "text": "International product experience is structurally missing — consider tackling an APAC-focused side initiative over the next 2 quarters",
+      "effort": "long_term"
+    }
+  ],
+  "radar": {
+    "dimensions": [
+      { "name": "行业经验", "resume_score": 78, "jd_required": 80 },
+      { "name": "核心技能", "resume_score": 72, "jd_required": 85 },
+      { "name": "数据能力", "resume_score": 60, "jd_required": 75 },
+      { "name": "沟通协作", "resume_score": 85, "jd_required": 75 },
+      { "name": "文化匹配", "resume_score": 70, "jd_required": 70 },
+      { "name": "支付领域", "resume_score": 80, "jd_required": 82 }
+    ]
+  }
+}

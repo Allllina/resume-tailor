@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.1.1",
+  "sources": [
+    "assets/knowledge-base/references/workflow/quality-pass.md#pass-3",
+    "SKILL.md"
+  ],
+  "hard_locked_fields": [
+    "公司名",
+    "职位名",
+    "学校",
+    "专业",
+    "学位",
+    "时间",
+    "联系方式",
+    "工具栈具体名称（实际未用过的不能加）",
+    "课程名（实际未修过的不能加）"
+  ],
+  "valid_sources": [
+    "experience-bank/raw/*.md",
+    "profile/user-profile.md",
+    "speedlearn-whitelist.json"
+  ],
+  "fact_types": [
+    "数字（百分比 / 计数 / 比例 / 金额）",
+    "名字（人 / 项目 / 客户）",
+    "动作（动词具体行为）",
+    "结果（产出物 / 客户决策 / 后续影响）"
+  ],
+  "actions_when_unsourced": [
+    "remove",
+    "mark_TBD",
+    "ask_user"
+  ],
+  "anchor_examples": [
+    {
+      "case": "京东 BA 面试 2026-05-02",
+      "claim": "Mercer + Kearney 是核心放置项",
+      "source": "first_party_interview_feedback",
+      "result": "anchor for recognition_per_industry.internet_strategic"
+    },
+    {
+      "case": "Anker AIGC 试跑 2026-05-04",
+      "claim": "5 维评估框架（市场规模/增长性/...）",
+      "source": "fabricated — not in 01-kearney.md 项目 1",
+      "result": "Pass 3 fail-fix to 3 维 framework"
+    }
+  ],
+  "detection_heuristics": [
+    {
+      "pattern_type": "specific_number_without_anchor",
+      "detection": "数字 + 单位 + 名词组合，但 raw 文件中无相同组合",
+      "example_violation": "30+ 分钟人工跨平台追踪（raw 06-projects.md 项目 2 无此数字）"
+    },
+    {
+      "pattern_type": "tool_name_not_in_whitelist",
+      "detection": "Skills 行新增工具名，不在 user-profile.md skills 段且不在 speedlearn-whitelist.json",
+      "example_violation": "Stable Diffusion / Midjourney（用户未实操）"
+    }
+  ]
+}

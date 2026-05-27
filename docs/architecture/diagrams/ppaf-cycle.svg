@@ -1,0 +1,89 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions -->
+  <defs>
+    <style>
+      .stage-box { fill: #f8fafc; stroke: #334155; stroke-width: 2; }
+      .text-main { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; fill: #1e293b; }
+      .text-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 11px; fill: #64748b; }
+      .text-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; }
+      .arrow { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrowhead); }
+      .accent-emerald { fill: #10b981; }
+      .accent-amber { fill: #f59e0b; }
+      .connector { stroke: #cbd5e1; stroke-width: 1; stroke-dasharray: 4; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <!-- PPAF Cycle Title -->
+  <text x="400" y="40" text-anchor="middle" class="text-title">PPAF Orchestration Cycle (5-Stage Variant)</text>
+
+  <!-- Stage 1: Perception -->
+  <rect x="300" y="80" width="200" height="80" rx="8" class="stage-box" />
+  <rect x="300" y="80" width="10" height="80" rx="8" class="accent-emerald" />
+  <text x="320" y="105" class="text-main" font-weight="bold">1. PERCEPTION</text>
+  <text x="320" y="125" class="text-sub">• JD Text + Metadata</text>
+  <text x="320" y="140" class="text-sub">• Candidate Assets (Profile/Bank)</text>
+  <text x="320" y="155" class="text-sub">run_perception()</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 500 120 Q 580 120 580 200" class="arrow" />
+
+  <!-- Stage 2: Planning -->
+  <rect x="530" y="200" width="220" height="120" rx="8" class="stage-box" />
+  <rect x="530" y="200" width="10" height="120" rx="8" class="accent-emerald" />
+  <text x="550" y="225" class="text-main" font-weight="bold">2. PLANNING</text>
+  <text x="550" y="245" class="text-sub">• Lens Routing (tools.lens_router)</text>
+  <text x="550" y="260" class="text-sub">• Competency Extractor (W4 D.4)</text>
+  <text x="550" y="275" class="text-sub">• 3-Pass Selection (R-8)</text>
+  <text x="550" y="290" class="text-sub">• Fit Diagnosis (pre_rewrite)</text>
+  <text x="550" y="305" class="text-sub">run_planning()</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 640 320 Q 640 400 550 400" class="arrow" />
+
+  <!-- Stage 3: Early-Feedback -->
+  <rect x="330" y="360" width="220" height="80" rx="8" class="stage-box" />
+  <rect x="330" y="360" width="10" height="80" rx="8" class="accent-amber" />
+  <text x="350" y="385" class="text-main" font-weight="bold">3. EARLY-FEEDBACK</text>
+  <text x="350" y="405" class="text-sub">• Verdict Scoring (score_run)</text>
+  <text x="350" y="420" class="text-sub">• Tier Assignment (1 / 2 / 3)</text>
+  <text x="350" y="435" class="text-sub">run_early_feedback()</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 330 400 Q 220 400 220 320" class="arrow" />
+
+  <!-- Stage 4: Action -->
+  <rect x="50" y="200" width="220" height="120" rx="8" class="stage-box" />
+  <rect x="50" y="200" width="10" height="120" rx="8" class="accent-emerald" />
+  <text x="70" y="225" class="text-main" font-weight="bold">4. ACTION</text>
+  <text x="70" y="245" class="text-sub">• Rewrite Engine (Tier 2/3)</text>
+  <text x="70" y="260" class="text-sub">• Bullet Injection (inject_bullets)</text>
+  <text x="70" y="275" class="text-sub">• Skill Row Reorder</text>
+  <text x="70" y="290" class="text-sub">• Summary Regeneration</text>
+  <text x="70" y="305" class="text-sub">run_action()</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M 160 200 Q 160 120 250 120" class="arrow" />
+
+  <!-- Stage 5: Late-Feedback -->
+  <rect x="250" y="210" width="240" height="110" rx="8" class="stage-box" />
+  <rect x="250" y="210" width="10" height="110" rx="8" class="accent-amber" />
+  <text x="270" y="235" class="text-main" font-weight="bold">5. LATE-FEEDBACK</text>
+  <text x="270" y="255" class="text-sub">• Quality Pass (Pass 1-3)</text>
+  <text x="270" y="270" class="text-sub">• Pass 3 Truthfulness (LangGraph)</text>
+  <text x="270" y="285" class="text-sub">• Dual Review (HM/HRBP)</text>
+  <text x="270" y="300" class="text-sub">• Artifact Write + Lifecycle</text>
+  <text x="270" y="315" class="text-sub">run_late_feedback()</text>
+
+  <!-- Connection from 5 back to 1 (Loop) -->
+  <path d="M 370 210 L 370 160" class="connector" stroke-dasharray="4" />
+  <text x="375" y="190" class="text-sub">LOOP (next run)</text>
+
+  <!-- Background Data Plane -->
+  <rect x="100" y="520" width="600" height="60" rx="8" fill="#f1f5f9" stroke="#cbd5e1" />
+  <text x="400" y="545" text-anchor="middle" class="text-main" font-weight="bold">DATA PLANE (DB / Filesystem / Traces)</text>
+  <text x="400" y="565" text-anchor="middle" class="text-sub">State.json • Resume.tex • Audit Logs • Metrics Events</text>
+
+</svg>

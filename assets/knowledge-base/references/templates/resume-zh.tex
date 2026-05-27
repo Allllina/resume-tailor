@@ -1,0 +1,178 @@
+% ============================================================
+% 简历 LaTeX 模板 — 中文一页简历
+% 编译方式：XeLaTeX（Overleaf 选择 XeLaTeX 编译器）
+% 格式基准：美团投递版（2026-04-23 定稿）
+% ============================================================
+\documentclass[10pt, a4paper]{article}
+\usepackage[fontsize=9.5pt]{scrextend}
+
+% ---------- 基础包 ----------
+\usepackage[top=0.4in, bottom=0.4in, left=0.55in, right=0.55in]{geometry}
+\usepackage[UTF8, scheme=plain, fontset=fandol]{ctex}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% ---------- 全黑字体 ----------
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+}
+
+% ---------- 页面设置 ----------
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% ---------- 标题格式 ----------
+\titleformat{\section}
+    {\large\bfseries}
+    {}
+    {0em}
+    {}
+    [\vspace{-0.6em}{\rule{\textwidth}{0.8pt}}]
+
+\titlespacing*{\section}{0pt}{0.4em}{0.4em}
+
+% ---------- 列表格式 ----------
+\setlist[itemize]{
+    leftmargin=1.2em,
+    itemsep=2pt,
+    parsep=2pt,
+    topsep=4pt,
+}
+
+% ---------- 自定义命令（正文统一字号，仅section标题用\large） ----------
+\newcommand{\expheader}[4]{%
+    \vspace{3pt}%
+    {\bfseries #1} \hfill {#3} \\
+    {#2} \hfill {#4}%
+    \vspace{3pt}%
+}
+
+\newcommand{\eduheader}[4]{%
+    \vspace{3pt}%
+    {\bfseries #1} \hfill {#3} \\
+    {#2} \hfill {#4}%
+    \vspace{3pt}%
+}
+
+\newcommand{\projheader}[2]{%
+    \vspace{3pt}%
+    {\bfseries #1} \hfill {#2}%
+    \vspace{3pt}%
+}
+
+% ============================================================
+\sloppy
+\begin{document}
+
+% ==================== 头部信息（居中） ====================
+\begin{center}
+    {\LARGE\bfseries {{NAME}}} \\[4pt]
+    {{PHONE_1}} \enspace|\enspace
+    {{PHONE_2}} \enspace|\enspace
+    {{EMAIL}} \enspace|\enspace
+    {{LOCATION}}
+    \\[2pt]
+    LinkedIn: {{LINKEDIN}}
+\end{center}
+
+\vspace{0.2em}
+
+% ==================== 教育经历 ====================
+\section{教育经历}
+
+\eduheader
+    {{{EDU_SCHOOL_1}}}
+    {{{EDU_MAJOR_1}}}
+    {{{EDU_TIME_1}}}
+    {{{EDU_LOCATION_1}}}
+
+核心课程：{{EDU_COURSES_1}}
+
+\eduheader
+    {{{EDU_SCHOOL_2}}}
+    {{{EDU_MAJOR_2}}}
+    {{{EDU_TIME_2}}}
+    {{{EDU_LOCATION_2}}}
+
+核心课程：{{EDU_COURSES_2}}
+
+% ==================== 实习经历 ====================
+\section{实习经历}
+
+% --- 经历 1 ---
+\expheader
+    {{{EXP_COMPANY_1}}}
+    {{{EXP_ROLE_1}}}
+    {{{EXP_TIME_1}}}
+    {{{EXP_LOCATION_1}}}
+\begin{itemize}
+    \item {{EXP_BULLET_1_1}}
+    \item {{EXP_BULLET_1_2}}
+\end{itemize}
+
+% --- 经历 2 ---
+\expheader
+    {{{EXP_COMPANY_2}}}
+    {{{EXP_ROLE_2}}}
+    {{{EXP_TIME_2}}}
+    {{{EXP_LOCATION_2}}}
+\begin{itemize}
+    \item {{EXP_BULLET_2_1}}
+    \item {{EXP_BULLET_2_2}}
+\end{itemize}
+
+% --- 经历 3 ---
+\expheader
+    {{{EXP_COMPANY_3}}}
+    {{{EXP_ROLE_3}}}
+    {{{EXP_TIME_3}}}
+    {{{EXP_LOCATION_3}}}
+\begin{itemize}
+    \item {{EXP_BULLET_3_1}}
+    \item {{EXP_BULLET_3_2}}
+\end{itemize}
+
+% --- 经历 4（可选：如需展示4段完整经历） ---
+% \expheader
+%     {{{EXP_COMPANY_4}}}
+%     {{{EXP_ROLE_4}}}
+%     {{{EXP_TIME_4}}}
+%     {{{EXP_LOCATION_4}}}
+% \begin{itemize}
+%     \item {{EXP_BULLET_4_1}}
+%     \item {{EXP_BULLET_4_2}}
+% \end{itemize}
+
+% --- 其他经历（可选：压缩为单行的经历） ---
+% \vspace{3pt}
+% {\bfseries 其他实习经历：}{{OTHER_EXP}}
+% \vspace{3pt}
+
+% ==================== 项目经历 ====================
+\section{项目经历}
+
+% --- 项目 1 ---
+\projheader{{{PROJ_NAME_1}}}{{{PROJ_TIME_1}}}
+\begin{itemize}
+    \item {{PROJ_BULLET_1_1}}
+    \item {{PROJ_BULLET_1_2}}
+\end{itemize}
+
+% --- 项目 2 ---
+\projheader{{{PROJ_NAME_2}}}{{{PROJ_TIME_2}}}
+\begin{itemize}
+    \item {{PROJ_BULLET_2_1}}
+\end{itemize}
+
+% ==================== 技能/证书及其他 ====================
+\section{技能/证书及其他}
+
+\begin{itemize}
+    \item \textbf{{{SKILL_CAT_1}}：}{{SKILL_LIST_1}}
+    \item \textbf{{{SKILL_CAT_2}}：}{{SKILL_LIST_2}}
+\end{itemize}
+
+\end{document}

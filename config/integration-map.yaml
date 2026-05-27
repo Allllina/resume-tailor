@@ -1,0 +1,39 @@
+version: 0.2.0
+status: foundation
+source_repositories:
+  resume_optimizer:
+    path: .
+    role: strategy_asset_layer
+  jobops:
+    path: ops/jobops
+    source: https://github.com/Allllina/job-ops.git
+    upstream: https://github.com/DaKheera47/job-ops
+    imported_commit: c0921a32ad7c5677063d3343b70db90df06dddcc
+    integration_mode: vendored_source_snapshot
+
+asset_inputs:
+  profile: assets/profile/user-profile.md
+  experience_index: assets/experience-bank/index.json
+  experience_raw: assets/experience-bank/raw/*.md
+  resume_versions: assets/resume-bank/versions/*/metadata.json
+  knowledge_base: assets/knowledge-base/references/**
+
+strategy_modules:
+  role_competency_extractor:
+    path: packages/strategy-modules/role-competency-extractor
+    status: specification_integrated
+    planned_consumer: ops/jobops/orchestrator
+  resume_rewrite_engine:
+    path: packages/strategy-modules/resume-rewrite-engine
+    status: specification_integrated
+    planned_consumer: ops/jobops/orchestrator
+
+jobops_integration:
+  current_status: source_imported_not_customized
+  next_steps:
+    - map JobOps profile/settings model to Resume_Optimizer assets
+    - add read-only asset loader
+    - map JobOps scoring output to contracts/schemas/job-score.schema.json
+    - route JobOps ghostwriter/resume generation through resume-rewrite-engine
+    - preserve Gmail/email as primary tracking channel
+    - keep Telegram out of default notification flow

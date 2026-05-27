@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Resume Version Metadata",
+  "type": "object",
+  "required": [
+    "id",
+    "label",
+    "status",
+    "target_roles",
+    "strongest_experiences",
+    "editable_fields",
+    "protected_sections"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "language": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "market": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "target_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "target_industries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "strongest_experiences": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "editable_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "protected_sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "truth_policy": {
+      "type": "string"
+    },
+    "source_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

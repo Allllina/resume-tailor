@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/submit-channel.schema.json",
+  "title": "Submit Channel Row",
+  "description": "Per-draft submit instruction. Input row to /api/submit-batch endpoint. Defines which draft, via which channel, using which method.",
+  "type": "object",
+  "required": ["draft_id", "channel", "method"],
+  "properties": {
+    "draft_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "run_id of the harness-tailor-output that produced this draft"
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["linkedin", "boss", "workday", "greenhouse", "lever", "email", "generic_ats"],
+      "description": "Submit destination type. Determines rate-limit class, sub-cap (LinkedIn), and submit_url shape."
+    },
+    "method": {
+      "type": "string",
+      "enum": ["auto-fill-bot", "userscript", "manual-paste", "email"],
+      "description": "How to submit. auto-fill-bot = server-side Selenium; userscript = return JSON for user's browser script; manual-paste = clipboard helper; email = SMTP send."
+    },
+    "submit_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional override of the URL to submit to. If absent, derived from draft.matched_jd_url."
+    },
+    "recipient_email": {
+      "type": "string",
+      "format": "email",
+      "description": "Required if method=email. Recipient mailbox address."
+    },
+    "additional_question_overrides": {
+      "type": "object",
+      "description": "Per-submit overrides of the candidate's additional-questions answers. Merged on top of the YAML defaults loaded by the submitter.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

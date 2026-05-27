@@ -1,0 +1,14 @@
+{
+  "_d11_rebaseline_note_2026_05_08": "Re-baselined against committed sample-data after D11. Lens routing (C_product_ops + ai-innovation) is deterministic-keyword from the Anker JD, unchanged. matched_resume_version=custom on the maintainer's machine because default user_dir/master.tex still exists locally (gitignored); on a fresh CI clone it'd be the lens label via project_sample fallback. Test stays valid for both — just verify the lens routing invariant.",
+  "primary_lens": "C_product_ops",
+  "scenario": "ai-innovation",
+  "matched_resume_version": "custom",
+  "_matched_resume_version_note": "Post-2026-05-07 (planning.py fix): when the user has uploaded their own master.tex (default has one), MasterSelector returns metadata.source='user_uploaded' and matched_resume_version is stamped 'custom' instead of the lens. The lens routing decision (C_product_ops) is still recorded under primary_lens.",
+  "verdict": "complete",
+  "_verdict_note_2026_05_23": "Updated from degraded_no_substance → complete by the rewrite-engine truthfulness granular-drop fix (2026-05-23). The engine no longer aborts the WHOLE rewrite when one bullet's claim can't be substring-sourced (here the mock's 'Shipped AIGC content workflow' for 01-kearney); it drops only that bullet and keeps the rest. With section_g_bullets now non-empty, Pass 3 runs and — with the realistic Phase-2 mock for post_rewrite (llm + above_mid) — all three R-18 conditions are met → complete. Previously the abort left zero bullets → Pass 3 skipped → pass3_verdict absent → R-18 demote. The lens-routing invariant (C_product_ops) remains the primary thing this test locks; the verdict now also confirms the happy path can reach complete end-to-end.",
+  "tier_assigned": 3,
+  "_tier_assigned_note": "W4 D.3 (v0.5.7+): tier is dynamic via assign_tier on resume_match_score. For this Anker JD against the default experience-bank with C_product_ops lens, Pass C produces a low score → Tier 3. Pre-D.3 this was hardcoded to 1.",
+  "lens_routing_used_llm_fallback": false,
+  "_source": "v0.3.3 commit e0b358d (resume: Anker AIGC v0.4.0 L1 端到端试跑首例)",
+  "_invariant_purpose": "Lock the manual routing decision into automated regression so future Wave 2+ changes don't drift the lens decision for this real-world JD."
+}

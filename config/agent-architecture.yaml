@@ -1,0 +1,49 @@
+# Resume Operations Agent configuration stub
+
+project:
+  name: Resume_Optimizer
+  role: strategy_asset_layer
+  source_of_truth:
+    - assets/profile/user-profile.md
+    - assets/experience-bank/raw/*.md
+    - assets/knowledge-base/references/**
+    - assets/resume-bank/versions/*/metadata.json
+
+operations_hub:
+  recommended: ops/jobops
+  source_of_truth: sqlite_or_postgres_inside_jobops
+  primary_ui: jobops_web
+  notification_channels:
+    primary:
+      - email
+      - gmail
+    optional:
+      - whatsapp_short_alerts
+    not_default:
+      - telegram
+
+ai_workflow:
+  recommended_framework: langgraph_or_lightweight_state_graph
+  heavy_rag_in_mvp: false
+  retrieval_mvp:
+    - structured_experience_index
+    - keyword_matching
+    - capability_tags
+    - role_family_matching
+    - llm_reranking
+
+scoring:
+  tier_1:
+    min_total_score: 90
+    min_resume_match_score: 85
+    action: auto_light_tailor_dry_run_first
+  tier_2:
+    min_total_score: 70
+    action: deep_review_human_approval
+  tier_3:
+    action: archive_or_skip
+
+visa_rules:
+  generic_authorized_wording: neutral
+  explicit_sponsorship_available: positive
+  no_sponsorship_or_citizen_only: hard_skip

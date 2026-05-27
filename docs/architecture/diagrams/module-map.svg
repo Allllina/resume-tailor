@@ -1,0 +1,80 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions -->
+  <defs>
+    <style>
+      .module-box { fill: #ffffff; stroke: #334155; stroke-width: 1.5; }
+      .text-main { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; fill: #1e293b; }
+      .text-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; }
+      .text-header { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #475569; }
+      .status-ok { fill: #10b981; } /* Emerald */
+      .status-partial { fill: #f59e0b; } /* Amber */
+      .status-spec { fill: #ef4444; } /* Red */
+      .link { stroke: #94a3b8; stroke-width: 1; stroke-dasharray: 4; }
+    </style>
+  </defs>
+
+  <text x="400" y="40" text-anchor="middle" class="text-title">Strategy Modules ↔ Harness Implementation</text>
+
+  <!-- Headers -->
+  <text x="150" y="80" text-anchor="middle" class="text-header">STRATEGY MODULES</text>
+  <text x="150" y="95" text-anchor="middle" class="text-sub" font-size="11" fill="#94a3b8">packages/strategy-modules/</text>
+  
+  <text x="650" y="80" text-anchor="middle" class="text-header">HARNESS IMPLEMENTATION</text>
+  <text x="650" y="95" text-anchor="middle" class="text-sub" font-size="11" fill="#94a3b8">packages/harness/src/harness/</text>
+
+  <!-- M1: Competency Extractor -->
+  <rect x="40" y="120" width="220" height="40" rx="4" class="module-box" />
+  <text x="50" y="145" class="text-main">role-competency-extractor</text>
+  <circle cx="250" cy="140" r="6" class="status-ok" />
+  
+  <rect x="540" y="120" width="220" height="40" rx="4" class="module-box" />
+  <text x="550" y="145" class="text-main">competency/extractor.py</text>
+  <line x1="260" y1="140" x2="540" y2="140" class="link" />
+
+  <!-- M2: Fit Diagnosis -->
+  <rect x="40" y="180" width="220" height="40" rx="4" class="module-box" />
+  <text x="50" y="205" class="text-main">fit-diagnosis-engine</text>
+  <circle cx="250" cy="200" r="6" class="status-ok" />
+  
+  <rect x="540" y="180" width="220" height="40" rx="4" class="module-box" />
+  <text x="550" y="205" class="text-main">fit_diagnosis/ (pre/post)</text>
+  <line x1="260" y1="200" x2="540" y2="200" class="link" />
+
+  <!-- M3: Gap Bridging -->
+  <rect x="40" y="240" width="220" height="40" rx="4" class="module-box" />
+  <text x="50" y="265" class="text-main">gap-bridging-planner</text>
+  <circle cx="250" cy="260" r="6" class="status-partial" />
+  
+  <rect x="540" y="240" width="220" height="40" rx="4" class="module-box" />
+  <text x="550" y="265" class="text-main">gap_bridging/planner.py</text>
+  <line x1="260" y1="260" x2="540" y2="260" class="link" />
+
+  <!-- M4: Rewrite Engine -->
+  <rect x="40" y="300" width="220" height="40" rx="4" class="module-box" />
+  <text x="50" y="325" class="text-main">resume-rewrite-engine</text>
+  <circle cx="250" cy="320" r="6" class="status-ok" />
+  
+  <rect x="540" y="300" width="220" height="40" rx="4" class="module-box" />
+  <text x="550" y="325" class="text-main">rewrite/ (D.2 wired)</text>
+  <line x1="260" y1="320" x2="540" y2="320" class="link" />
+
+  <!-- M5: Quality Pass -->
+  <rect x="40" y="360" width="220" height="40" rx="4" class="module-box" />
+  <text x="50" y="385" class="text-main">quality-pass-runner</text>
+  <circle cx="250" cy="380" r="6" class="status-partial" />
+  
+  <rect x="540" y="360" width="220" height="40" rx="4" class="module-box" />
+  <text x="550" y="385" class="text-main">verify/ (Pass 3 LangGraph)</text>
+  <line x1="260" y1="380" x2="540" y2="380" class="link" />
+
+  <!-- Legend -->
+  <rect x="40" y="440" width="720" height="40" rx="4" fill="#f8fafc" stroke="#e2e8f0" />
+  <circle cx="60" cy="460" r="6" class="status-ok" />
+  <text x="75" y="465" class="text-main">✅ Shipped</text>
+  <circle cx="180" cy="460" r="6" class="status-partial" />
+  <text x="195" y="465" class="text-main">🟡 Partial / In-Progress</text>
+  <circle cx="360" cy="460" r="6" class="status-spec" />
+  <text x="375" y="465" class="text-main">🔴 Spec-only</text>
+  <text x="550" y="465" class="text-main" font-style="italic">Strategy Module ↔ Implementation Map</text>
+
+</svg>

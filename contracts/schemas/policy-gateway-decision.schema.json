@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/policy-gateway-decision.schema.json",
+  "title": "Policy Gateway Decision",
+  "description": "Per HARNESS_DESIGN §11. Every action passing through policy gateway emits a decision record. Allow / deny / ask_user / degrade per R-1 to R-8 + PII / RBAC checks.",
+  "type": "object",
+  "required": ["decision_id", "timestamp", "action_type", "verdict", "policies_evaluated"],
+  "properties": {
+    "decision_id": { "type": "string", "format": "uuid" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "bullet_rewrite",
+        "skill_inject",
+        "summary_write",
+        "disambiguator_add",
+        "tex_render",
+        "scraper_fetch",
+        "submit_to_ats",
+        "feedback_ingest",
+        "rubric_update"
+      ]
+    },
+    "actor": {
+      "type": "string",
+      "enum": ["repl_loop", "pass3_verifier", "scraper", "user", "feedback_agent"]
+    },
+    "subject": {
+      "type": "object",
+      "description": "What is being acted upon",
+      "properties": {
+        "experience_id": { "type": "string" },
+        "lens": { "type": "string" },
+        "industry": { "type": "string" },
+        "claim_text": { "type": "string" }
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["allow", "deny", "ask_user", "degrade"]
+    },
+    "policies_evaluated": {
+      "type": "array",
+      "description": "Hard rules / policies checked",
+      "items": {
+        "type": "object",
+        "required": ["policy_id", "result"],
+        "properties": {
+          "policy_id": {
+            "type": "string",
+            "enum": ["R-1", "R-2", "R-3", "R-4", "R-5", "R-6", "R-7", "R-8", "pii_filter", "rbac", "rate_limit", "injection_defense"]
+          },
+          "result": { "type": "string", "enum": ["pass", "fail", "n/a"] },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "denial_reason": {
+      "type": "string",
+      "description": "Required if verdict=deny; user-friendly explanation"
+    },
+    "ask_user_question": {
+      "type": "string",
+      "description": "Required if verdict=ask_user"
+    },
+    "degradation_target": {
+      "type": "string",
+      "description": "Required if verdict=degrade; the safer fallback action"
+    }
+  }
+}

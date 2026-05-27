@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "llm-health",
+  "title": "LLM Health Response",
+  "description": "Gate 2 (v0.6.2) — response shape for GET /api/health. Reports LLM reachability state from the module-level LLMHealthMonitor singleton.",
+  "type": "object",
+  "required": ["harness_version", "schema_version", "llm"],
+  "additionalProperties": false,
+  "properties": {
+    "harness_version": {
+      "type": "string",
+      "description": "Harness package version string (e.g. '0.6.2')."
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Schema version tag for this response shape. 'llm-health-v1' for Gate 2."
+    },
+    "llm": {
+      "type": "object",
+      "description": "LLM provider health snapshot.",
+      "required": ["status", "provider", "consecutive_failures", "circuit_open"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["healthy", "degraded", "down"],
+          "description": "healthy=no failures; degraded=1+ failures but circuit not yet open; down=circuit open."
+        },
+        "provider": {
+          "type": "string",
+          "description": "Provider name (e.g. 'anthropic', 'openai')."
+        },
+        "consecutive_failures": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of consecutive LLM call failures since last success."
+        },
+        "circuit_open": {
+          "type": "boolean",
+          "description": "True when the circuit breaker has tripped (requests blocked until cooldown expires)."
+        },
+        "seconds_since_last_success": {
+          "type": ["number", "null"],
+          "description": "Elapsed seconds since last successful LLM call. null if no successful call yet in this process lifetime."
+        },
+        "seconds_since_last_failure": {
+          "type": ["number", "null"],
+          "description": "Elapsed seconds since last LLM call failure. null if no failures yet."
+        }
+      }
+    }
+  }
+}

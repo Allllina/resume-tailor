@@ -1,0 +1,105 @@
+% ============================================================
+% Sample master resume — C_product_ops lens
+% D11 sample data. Real per-lens master lives at resume.zh.tex (gitignored).
+% Personas: Zhang Ming / Li Wen / Wang Yu (matches raw.sample/*.md).
+% 编译方式：XeLaTeX
+% ============================================================
+\documentclass[10pt, a4paper]{article}
+\usepackage[fontsize=9.5pt]{scrextend}
+
+% ---------- 基础包 ----------
+\usepackage[top=0.4in, bottom=0.4in, left=0.55in, right=0.55in]{geometry}
+\usepackage[UTF8, scheme=plain, fontset=fandol]{ctex}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\vspace{-0.6em}{\rule{\textwidth}{0.8pt}}]
+\titlespacing*{\section}{0pt}{0.4em}{0.4em}
+
+\setlist[itemize]{leftmargin=1.2em, itemsep=2pt, parsep=2pt, topsep=4pt}
+
+\newcommand{\expheader}[4]{%
+    \vspace{3pt}%
+    {\bfseries #1} \hfill {#3} \\
+    {#2} \hfill {#4}%
+    \vspace{3pt}%
+}
+
+\newcommand{\eduheader}[4]{%
+    \vspace{3pt}%
+    {\bfseries #1} \hfill {#3} \\
+    {#2} \hfill {#4}%
+    \vspace{3pt}%
+}
+
+\sloppy
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Demo User / 张明} \\[6pt]
+    demo@example.com \enspace|\enspace +1 (555) 000-0000 \\[3pt]
+    上海 / 深圳 / 纽约
+\end{center}
+
+\vspace{0.2em}
+
+\section{教育经历}
+
+\eduheader
+    {Sample University}
+    {应用分析 硕士}
+    {2024.09 -- 2026.02}
+    {纽约}
+\begin{itemize}
+    \item 核心课程：机器学习 / 数据工程 / 因果推断
+\end{itemize}
+
+\section{工作经历}
+
+\expheader
+    {Acme Strategy Group}
+    {Strategy Analyst Intern}
+    {2025.06 -- 2025.10}
+    {上海}
+\begin{itemize}
+    \item 主导某新能源整车客户战略框架研究，输出 70 页交付物，覆盖 12 家行业 leader 的竞争对标分析
+    \item 设计赛道优先级矩阵（吸引力 × 进入难度 × 战略契合度三轴），从 14 个赛道收敛至 4 个重点赛道
+    \item 在 5 周内交付一期成果，赢得 partner 评价 "结构化产出最优"
+    \item 独立负责东南亚出海子课题，自下而上市场容量测算输出 \$50M 营收预测（24 个月内）
+\end{itemize}
+
+\expheader
+    {BlueWave SaaS}
+    {Data Analytics Intern}
+    {2024.06 -- 2024.09}
+    {深圳}
+\begin{itemize}
+    \item 设计并执行 A/B 测试，覆盖 1.2M users，treatment 组 29 档转化率 +8\% lift（p<0.05）
+    \item 在 Snowflake 上搭建 SQL pipeline + Tableau 实时监控 dashboard
+\end{itemize}
+
+\expheader
+    {Beta Products}
+    {Product Operations Intern (AI)}
+    {2024.01 -- 2024.05}
+    {杭州}
+\begin{itemize}
+    \item 主导 prompt engineering pipeline 优化，覆盖 4 个内部团队，节省 30\% cycle time
+    \item RAG 内容工作流落地，hallucination rate 从 11\% → 3.5\%
+\end{itemize}
+
+\section{技能}
+
+\begin{itemize}
+    \item 工具：Python / SQL / Tableau / LangChain / Excel / PowerPoint
+    \item 行业研究：PEST / Porter / 价值链 / 自下而上市场容量测算
+    \item 语言：中文（母语）/ 英文（雅思 7.0）
+\end{itemize}
+
+\end{document}

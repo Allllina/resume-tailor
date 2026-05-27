@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "sources": ["packages/harness/src/harness/tier1/skill_injector.py"],
+  "purpose": "Bridge Chinese JD vocabulary to English Skills row tokens so SkillInjector can score row relevance even when JD and Skills items use different languages.",
+  "bridges": {
+    "AIGC": ["AIGC", "Prompt Engineering", "LLM", "Claude", "ChatGPT"],
+    "生成式 AI": ["AIGC", "Prompt Engineering", "LLM", "RAG"],
+    "生成式": ["AIGC", "Prompt", "LLM"],
+    "提示词": ["Prompt Engineering", "Prompt"],
+    "Agent": ["LangGraph", "Multi-Agent", "Agent"],
+    "工作流": ["LangGraph", "Agent", "MCP"],
+    "数据分析": ["Python", "SQL", "Pandas", "NumPy"],
+    "数据建模": ["Python", "Scikit-learn", "Pandas", "ML"],
+    "建模": ["Python", "Scikit-learn", "ML"],
+    "数据治理": ["SQL", "PostgreSQL", "ETL"],
+    "标签体系": ["RAG", "Prompt Engineering"],
+    "异动归因": ["SQL", "Python", "Pandas"],
+    "可视化": ["Tableau", "Power BI"],
+    "数据可视化": ["Tableau", "Power BI"],
+    "BI": ["Tableau", "Power BI", "Excel"],
+    "财务建模": ["Excel", "Python"],
+    "估值": ["Excel", "Python"],
+    "DCF": ["Excel", "Python"],
+    "组织诊断": ["Tableau", "Excel"],
+    "RAG": ["RAG", "Prompt Engineering"],
+    "LLM": ["LLM", "Claude", "ChatGPT", "Prompt"],
+    "Prompt": ["Prompt Engineering", "Prompt"],
+    "MCP": ["Claude Code", "MCP"],
+    "Claude": ["Claude", "Claude Code"],
+    "ChatGPT": ["ChatGPT", "GPT"]
+  }
+}

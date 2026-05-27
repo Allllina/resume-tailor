@@ -1,0 +1,112 @@
+.DS_Store
+
+# Secrets / local config
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node / JobOps
+node_modules/
+.next/
+dist/
+build/
+.turbo/
+coverage/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc
+*.bcf
+*.run.xml
+*.xdv
+
+# Generated resume artifacts
+*.pdf
+artifacts/
+data/
+outputs/
+
+# D11 — private seed data isolated; .sample siblings are committed.
+assets/experience-bank/raw/*.md
+assets/experience-bank/index.json
+assets/profile/user-profile.md
+assets/resume-bank/versions/*/resume.zh.tex
+assets/resume-bank/versions/*/metadata.json
+# Per-job tailored outputs (versions/custom/) — Jingwen-specific content.
+assets/resume-bank/versions/custom/
+packages/harness/data/users/
+
+# PII at repo root — real names, real cover letters, real test artifacts.
+# Anything matching these patterns MUST stay local; will be scrubbed from
+# history before public ship (see scripts/scrub_history_before_public.sh +
+# docs/PUBLISH_CHECKLIST.md).
+陈*.tex
+陈*.docx
+陈*.pdf
+Jingwen*.tex
+Jingwen*.docx
+Jingwen*.pdf
+*master.tex
+ui/test-resume.md
+ui/test-*.md
+
+!assets/experience-bank/raw.sample/
+!assets/experience-bank/raw.sample/*.md
+!assets/experience-bank/index.sample.json
+!assets/profile/user-profile.sample.md
+!assets/resume-bank/versions/*/resume.sample.zh.tex
+!assets/resume-bank/versions/*/metadata.sample.json
+
+# Future operations app local data
+ops/jobops/data/
+ops/jobops/.env
+ops/jobops/.env.*
+!ops/jobops/.env.example
+
+# Unrelated/heavy local experiment currently present in workspace
+agent-browser/
+
+# Local Claude Code settings (personal allowlist; do not commit)
+.claude/settings.local.json
+
+packages/harness/.venv/
+# data/ — runs ignored. Per-user dirs (data/users/) entirely ignored after D11
+# (per-user seed lives under each user dir alongside ad-hoc dogfood UUIDs).
+packages/harness/data/runs/
+packages/harness/data/runs.bak.*/
+packages/harness/**/*.egg-info/
+packages/harness/.env
+packages/harness/__pycache__/
+packages/harness/**/__pycache__/
+packages/harness/.pytest_cache/
+packages/harness/.ruff_cache/
+packages/harness/.mypy_cache/
+
+# UI / TanStack Start build artifacts
+.tanstack/
+.wrangler/
+.vinxi/
+.output/
+.nitro/
+.dev.vars
+
+# Playwright test artifacts
+ui/playwright-report/
+ui/test-results/
+.team-dev/
+
+# profile_hygiene.py `forget --all` soft-delete backups (contain personal profile data)
+.backup/

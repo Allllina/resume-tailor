@@ -1,0 +1,1234 @@
+[
+  {
+    "scenario_id": "mck-strategy-na",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "north-america",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734522Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-mck-strategy-na",
+        "competency_profile_id": "cp-A_strategy_research",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "above_mid",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "Structured Problem Solving",
+          "evidence": "Evidence from strategy projects.",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Executive Communication",
+          "evidence": "Presented to C-suite.",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Market Research",
+          "evidence": "Led multi-market sizing.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Stakeholder Management",
+          "evidence": "Managed client expectations.",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Financial Modeling",
+          "evidence": "Built DCF/LBO models.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Team Leadership",
+          "evidence": "Led teams of 3-5.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "Candidate shows above_mid competitiveness for McKinsey & Company.",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "north-america",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734772Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-mck-strategy-na",
+        "competency_profile_id": "cp-A_strategy_research",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "above_mid",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_direct",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "Analytical Rigor",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "Business Judgment",
+            "resume_score": 90,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "Research",
+            "resume_score": 95,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "Communication",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "Leadership",
+            "resume_score": 90,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "Structure",
+            "resume_score": 95,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  },
+  {
+    "scenario_id": "stripe-data-na",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "north-america",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734793Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-stripe-data-na",
+        "competency_profile_id": "cp-B_data_analytics",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "high",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "SQL Proficiency",
+          "evidence": "Complex joins and optimizations.",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "A/B Testing",
+          "evidence": "Designed 10+ experiments.",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Product Metrics",
+          "evidence": "Defined North Star metrics.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Python for Data Science",
+          "evidence": "Built predictive models.",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Data Visualization",
+          "evidence": "Created Tableau dashboards.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Business Insight",
+          "evidence": "Translated data to strategy.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "Candidate shows high competitiveness for Stripe.",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "north-america",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734803Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-stripe-data-na",
+        "competency_profile_id": "cp-B_data_analytics",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "high",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_direct",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "SQL/Tech",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "Statistics",
+            "resume_score": 90,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "Product Sense",
+            "resume_score": 95,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "Visualization",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "Business Impact",
+            "resume_score": 90,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "Modeling",
+            "resume_score": 95,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  },
+  {
+    "scenario_id": "btd-pm-cn",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "mainland-china",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734814Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-btd-pm-cn",
+        "competency_profile_id": "cp-C_product_ops",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "mid",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "产品定义",
+          "evidence": "撰写了20多份PRD。",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "用户增长",
+          "evidence": "提升了20%的DAU。",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "敏捷开发",
+          "evidence": "担任过Scrum Master。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "AI/AIGC应用",
+          "evidence": "落地了基于大模型的功能。",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "跨部门协作",
+          "evidence": "与研发和设计紧密配合。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "市场准入",
+          "evidence": "在3个国家成功上线。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "候选人在ByteDance的竞聘中表现出mid的竞争力。",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "mainland-china",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734822Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-btd-pm-cn",
+        "competency_profile_id": "cp-C_product_ops",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "mid",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_with_note",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "产品设计",
+            "resume_score": 65,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "用户增长",
+            "resume_score": 75,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "数据分析",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "执行力",
+            "resume_score": 65,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "利益相关者管理",
+            "resume_score": 75,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "AI技术应用",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  },
+  {
+    "scenario_id": "hsbc-po-hk",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "hong-kong",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734829Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-hsbc-po-hk",
+        "competency_profile_id": "cp-C_product_ops",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "below_mid",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "Product Definition",
+          "evidence": "Wrote 20+ PRDs.",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "User Growth",
+          "evidence": "Increased DAU by 20%.",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Agile Methodologies",
+          "evidence": "Scrum master experience.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "AIGC Integration",
+          "evidence": "Implemented LLM features.",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Cross-functional Collab",
+          "evidence": "Worked with Eng/Design.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Market Entry",
+          "evidence": "Launched in 3 countries.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "Candidate shows below_mid competitiveness for HSBC.",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "hong-kong",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734836Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-hsbc-po-hk",
+        "competency_profile_id": "cp-C_product_ops",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "below_mid",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_with_note",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "Product Design",
+            "resume_score": 65,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "User Growth",
+            "resume_score": 75,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "Data Analysis",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "Execution",
+            "resume_score": 65,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "Stakeholder Mgmt",
+            "resume_score": 75,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "AI/Tech",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  },
+  {
+    "scenario_id": "gs-ib-na",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "north-america",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734851Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-gs-ib-na",
+        "competency_profile_id": "cp-D_finance_markets",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "above_mid",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "Valuation Analysis",
+          "evidence": "Performed LBO/DCF.",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Financial Statements",
+          "evidence": "Deep dive into 10Ks.",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Transaction Execution",
+          "evidence": "Assisted in IPO process.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Equity Research",
+          "evidence": "Covered 5 internet stocks.",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Pitch Material Prep",
+          "evidence": "Built 50+ pitch books.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Due Diligence",
+          "evidence": "Led DD for M&A.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "Candidate shows above_mid competitiveness for Goldman Sachs.",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "north-america",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734861Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-gs-ib-na",
+        "competency_profile_id": "cp-D_finance_markets",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "above_mid",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_direct",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "Valuation",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "Modeling",
+            "resume_score": 90,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "Financial Analysis",
+            "resume_score": 95,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "Market Knowledge",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "Precision",
+            "resume_score": 90,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "Comms",
+            "resume_score": 95,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  },
+  {
+    "scenario_id": "ms-equity-hk",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "hong-kong",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734869Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-ms-equity-hk",
+        "competency_profile_id": "cp-D_finance_markets",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "low",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "Valuation Analysis",
+          "evidence": "Performed LBO/DCF.",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Financial Statements",
+          "evidence": "Deep dive into 10Ks.",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Transaction Execution",
+          "evidence": "Assisted in IPO process.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Equity Research",
+          "evidence": "Covered 5 internet stocks.",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Pitch Material Prep",
+          "evidence": "Built 50+ pitch books.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "Due Diligence",
+          "evidence": "Led DD for M&A.",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "Candidate shows low competitiveness for Morgan Stanley.",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "hong-kong",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734876Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-ms-equity-hk",
+        "competency_profile_id": "cp-D_finance_markets",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "low",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_with_note",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "Valuation",
+            "resume_score": 65,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "Modeling",
+            "resume_score": 75,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "Financial Analysis",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "Market Knowledge",
+            "resume_score": 65,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "Precision",
+            "resume_score": 75,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "Comms",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  },
+  {
+    "scenario_id": "mercer-hr-cn",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "mainland-china",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734883Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-mercer-hr-cn",
+        "competency_profile_id": "cp-HC_human_capital",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "mid",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "组织架构设计",
+          "evidence": "为千人规模公司重新设计架构。",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "薪酬福利",
+          "evidence": "搭建了激励体系。",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "人才管理",
+          "evidence": "开发了高潜人才项目。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "HR战略",
+          "evidence": "确保HR战略与业务对齐。",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "咨询流程",
+          "evidence": "端到端项目交付。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "市场对标",
+          "evidence": "执行了年度薪酬调研。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "候选人在Mercer的竞聘中表现出mid的竞争力。",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "mainland-china",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734891Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-mercer-hr-cn",
+        "competency_profile_id": "cp-HC_human_capital",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "mid",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_with_note",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "组织设计",
+            "resume_score": 65,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "薪酬福利",
+            "resume_score": 75,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "人才战略",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "咨询功底",
+            "resume_score": 65,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "数据素养",
+            "resume_score": 75,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "共情能力",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  },
+  {
+    "scenario_id": "bcg-ct-cn",
+    "fit_diagnosis_pre_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "pre_rewrite",
+      "target_market": "mainland-china",
+      "ppaf_stage": "planning",
+      "invoked_at": "2026-05-10T16:04:45.734898Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-bcg-ct-cn",
+        "competency_profile_id": "cp-A_strategy_research",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "high",
+      "_method": "llm",
+      "matching_matrix": [
+        {
+          "text": "结构化问题解决",
+          "evidence": "在战略项目中体现了严密的逻辑框架。",
+          "verdict": "transferable",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "高层沟通",
+          "evidence": "曾直接向执委会汇报。",
+          "verdict": "strong_match",
+          "source": "section_b_priority",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "市场研究",
+          "evidence": "主导了多个市场的规模估算。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "利益相关者管理",
+          "evidence": "有效管理了客户预期。",
+          "verdict": "transferable",
+          "source": "section_c_tier_1",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "财务建模",
+          "evidence": "搭建了复杂的DCF和LBO模型。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        },
+        {
+          "text": "团队领导力",
+          "evidence": "领导过3-5人的项目小组。",
+          "verdict": "strong_match",
+          "source": "section_c_tier_2",
+          "bridging_or_closure": "Refine narrative"
+        }
+      ],
+      "integrated_assessment": "候选人在BCG的竞聘中表现出high的竞争力。",
+      "optimization_boundary": {
+        "rewriting_can_solve": [
+          "Vocabulary alignment",
+          "Experience framing"
+        ],
+        "rewriting_cannot_solve": [
+          "Structural experience gaps"
+        ]
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "sub_skill": "fit-diagnosis-engine",
+      "mode": "post_rewrite",
+      "target_market": "mainland-china",
+      "ppaf_stage": "late_feedback",
+      "invoked_at": "2026-05-10T16:04:45.734905Z",
+      "inputs_signature": {
+        "jd_analysis_id": "jd-bcg-ct-cn",
+        "competency_profile_id": "cp-A_strategy_research",
+        "current_resume_hash": "sha256:abc123mock"
+      },
+      "multi_jd": false,
+      "confidence": "high",
+      "competitiveness_rating": "high",
+      "_method": "llm",
+      "hm": {
+        "highlights": [
+          "Strong core skills",
+          "Relevant background"
+        ],
+        "concerns": [
+          "Edge case limitations"
+        ],
+        "comparison_risk": "Above average candidate."
+      },
+      "hrbp": {
+        "keyword_hit_rate": 0.82,
+        "hard_filter_match": {
+          "degree": "match",
+          "visa": "match"
+        },
+        "advance_decision": "push_direct",
+        "decision_rationale": "Matches key personas."
+      },
+      "radar": {
+        "dimensions": [
+          {
+            "name": "分析深度",
+            "resume_score": 85,
+            "jd_required": 85,
+            "citation": "exp-1"
+          },
+          {
+            "name": "商业判断",
+            "resume_score": 90,
+            "jd_required": 85,
+            "citation": "exp-2"
+          },
+          {
+            "name": "研究能力",
+            "resume_score": 95,
+            "jd_required": 85,
+            "citation": "exp-3"
+          },
+          {
+            "name": "沟通影响力",
+            "resume_score": 85,
+            "jd_required": 75,
+            "citation": "exp-4"
+          },
+          {
+            "name": "领导力",
+            "resume_score": 90,
+            "jd_required": 75,
+            "citation": "exp-5"
+          },
+          {
+            "name": "结构化思维",
+            "resume_score": 95,
+            "jd_required": 75,
+            "citation": "exp-6"
+          }
+        ]
+      },
+      "improvement_suggestions": [
+        {
+          "text": "Optimize keyword density",
+          "effort": "wording"
+        }
+      ]
+    }
+  }
+]

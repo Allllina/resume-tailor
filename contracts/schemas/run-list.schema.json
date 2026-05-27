@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/run-list.schema.json",
+  "title": "Run List Response",
+  "description": "GET /api/runs response. Sorted by created_at desc (newest first). Inbox UI groups client-side into today / yesterday / this week.",
+  "type": "object",
+  "required": ["runs"],
+  "properties": {
+    "runs": {
+      "type": "array",
+      "items": {
+        "$ref": "https://jobsearch-ops-agent/contracts/run-summary.schema.json"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total run count (may exceed runs.length if pagination is added later)."
+    }
+  },
+  "additionalProperties": false
+}

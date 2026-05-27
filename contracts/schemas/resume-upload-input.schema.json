@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/resume-upload-input.schema.json",
+  "title": "Resume Upload Input",
+  "description": "POST /api/users/profile/upload-resume — multipart/form-data. This schema describes the metadata fields; the actual file content arrives as a multipart 'file' field, not in JSON. Use this schema to validate the metadata sidecar (when sent as JSON in tests, or as form fields in production).",
+  "type": "object",
+  "required": ["file_name", "format"],
+  "properties": {
+    "file_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "description": "Original filename for display + format inference fallback."
+    },
+    "format": {
+      "type": "string",
+      "enum": ["md", "tex", "docx", "pdf"],
+      "description": "Detected format. Server re-validates against Content-Type and the bytes' magic number."
+    },
+    "size_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5242880,
+      "description": "Max 5MB. Server enforces this independently. Sized for typical PDF résumés (200-1000KB) with headroom for .docx with images."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,54 @@
+{
+  "_comment": "速成白名单：3 天内可补齐到面试可应对程度的技能。只有白名单内的技能允许在自动定制时注入简历的 Skills / Summary 段，禁止注入实习 / 项目 bullet。",
+  "_protocol": {
+    "purpose": "区分'用户已掌握的技能'与'用户尚未掌握但 3 天可速成的技能'。后者只允许出现在 Skills section 与 Summary，不允许写入 experience bullet。",
+    "valid_source_ref": "assets/knowledge-base/references/speedlearn-whitelist.json#<skill name lowercase>",
+    "entry_required_fields": ["name", "basis", "speedlearn_path"],
+    "entry_optional_fields": ["_added_at", "_added_for_jd"],
+    "ingestion_protocol": "见 workflow/quality-pass.md § JD-triggered Speedlearn 流程。新条目入库需用户在 chat 中显式确认；自动添加需附 _added_at 与 _added_for_jd 字段以备追溯。",
+    "injection_rules": {
+      "allowed": ["Skills section 直接列入", "Summary 中以'具备 X 能力'形式简述"],
+      "forbidden": ["实习 / 项目 bullet 中写'我用 X 做了 Y'", "基于速成技能写主观经验描述（'熟练 / 深度使用'）"]
+    }
+  },
+  "_last_updated": "2026-05-01",
+  "skills": [
+    {
+      "name": "AWS (Bedrock, S3, EC2)",
+      "basis": "已熟练 Claude API + LangGraph 多 Agent + Multi-Agent 架构；AWS Bedrock 是同类 LLM 托管 API，调用 pattern 一致；S3 / EC2 是基础云存储 + compute，文档充分",
+      "speedlearn_path": "AWS Free Tier 注册 → Bedrock 调用 Claude/Llama demo → S3 bucket CRUD → EC2 t2.micro 起 Flask + 跑一个 LangGraph agent on Bedrock",
+      "_added_at": "2026-05-01",
+      "_added_for_jd": "amazon-bp-supplier-quality-ba-2026"
+    },
+    {
+      "name": "Tableau",
+      "basis": "会 Power BI，可视化逻辑相通",
+      "speedlearn_path": "Tableau Public 免费练习 + YouTube 教程"
+    },
+    {
+      "name": "dbt",
+      "basis": "会 SQL，理解 ETL 概念",
+      "speedlearn_path": "dbt fundamentals course (免费) + 本地项目练习"
+    },
+    {
+      "name": "Figma",
+      "basis": "基础设计认知",
+      "speedlearn_path": "Figma 基础教程 + 临摹一个简单原型"
+    },
+    {
+      "name": "Looker",
+      "basis": "会 SQL + BI 工具",
+      "speedlearn_path": "LookML 语法 + Looker 报表搭建教程"
+    },
+    {
+      "name": "Airflow",
+      "basis": "会 Python + 理解 ETL pipeline",
+      "speedlearn_path": "Airflow DAG 编写 + 本地 Docker 部署练习"
+    },
+    {
+      "name": "Google Analytics",
+      "basis": "会数据分析",
+      "speedlearn_path": "GA4 界面操作 + 事件追踪逻辑"
+    }
+  ]
+}

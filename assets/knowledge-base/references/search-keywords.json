@@ -1,0 +1,76 @@
+{
+  "_comment": "各简历版本对应的搜索关键词组，供 job-discover 使用",
+  "versions": {
+    "A-Strategy": {
+      "keywords": [
+        "strategy analyst",
+        "business analyst",
+        "management consultant",
+        "market research",
+        "strategic planning",
+        "competitive intelligence",
+        "strategy intern",
+        "consulting intern",
+        "business strategy",
+        "corporate strategy"
+      ],
+      "semantic_equivalents": {
+        "strategy analyst": ["strategic analyst", "strategy associate", "business strategy analyst"],
+        "business analyst": ["business operations analyst", "commercial analyst", "insights analyst"],
+        "management consultant": ["consultant", "advisory analyst", "consulting analyst"]
+      }
+    },
+    "B-Data": {
+      "keywords": [
+        "data analyst",
+        "data scientist",
+        "analytics",
+        "BI analyst",
+        "business intelligence",
+        "quantitative analyst",
+        "data engineer",
+        "ML engineer",
+        "data intern",
+        "analytics intern"
+      ],
+      "semantic_equivalents": {
+        "data analyst": ["data analytics", "insights analyst", "analytics associate", "reporting analyst"],
+        "data scientist": ["applied scientist", "ML scientist", "research scientist"],
+        "BI analyst": ["business intelligence analyst", "BI developer", "reporting analyst"]
+      }
+    },
+    "C-Product": {
+      "keywords": [
+        "product operations",
+        "growth analyst",
+        "user research",
+        "operations analyst",
+        "program manager",
+        "customer success",
+        "product analyst",
+        "AI product",
+        "product intern",
+        "operations intern"
+      ],
+      "semantic_equivalents": {
+        "product operations": ["product ops", "business operations", "operations associate"],
+        "growth analyst": ["growth associate", "growth marketing", "growth strategy"],
+        "user research": ["UX research", "user insights", "consumer insights"]
+      }
+    },
+    "D-Finance": {
+      "keywords": [
+        "equity research",
+        "investment analyst",
+        "financial analyst",
+        "research analyst",
+        "investment banking",
+        "finance intern"
+      ],
+      "semantic_equivalents": {
+        "equity research": ["sell-side research", "buy-side research"],
+        "financial analyst": ["FP&A analyst", "corporate finance analyst"]
+      }
+    }
+  }
+}

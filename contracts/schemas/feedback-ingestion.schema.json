@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/feedback-ingestion.schema.json",
+  "title": "Feedback Ingestion",
+  "description": "Per Wave 5. Ingestion contract for rejection / interview feedback / recruiter comments → rubric update proposals (manual approval required before merging into recognition-rubric.md / vertical-fit-rubric.md / index.json).",
+  "type": "object",
+  "required": ["feedback_id", "timestamp", "source", "raw_content", "applied_run_ref", "proposed_updates"],
+  "properties": {
+    "feedback_id": { "type": "string", "format": "uuid" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "string",
+      "enum": ["rejection_email", "interview_feedback", "recruiter_comment", "user_self_observation"]
+    },
+    "raw_content": {
+      "type": "string",
+      "description": "Verbatim feedback text"
+    },
+    "applied_run_ref": {
+      "type": "string",
+      "description": "run_id of the harness-tailor-output that triggered this feedback"
+    },
+    "company": { "type": "string" },
+    "role_title": { "type": "string" },
+    "interview_round": { "type": "string" },
+    "interpreted_signal": {
+      "type": "object",
+      "properties": {
+        "experience_id_implicated": { "type": "string" },
+        "industry_column_implicated": { "type": "string" },
+        "lens_implicated": { "type": "string" },
+        "signal_polarity": { "type": "string", "enum": ["positive", "negative", "mixed", "neutral"] },
+        "signal_strength": { "type": "string", "enum": ["strong", "moderate", "weak"] }
+      }
+    },
+    "proposed_updates": {
+      "type": "array",
+      "description": "Concrete update proposals for human approval",
+      "items": {
+        "type": "object",
+        "required": ["target_file", "change_type", "rationale"],
+        "properties": {
+          "target_file": {
+            "type": "string",
+            "enum": [
+              "assets/experience-bank/index.json",
+              "assets/knowledge-base/references/recognition-rubric.md",
+              "assets/knowledge-base/references/vertical-fit-rubric.md",
+              "assets/knowledge-base/references/scenarios",
+              "packages/strategy-modules/resume-rewrite-engine/SKILL.md"
+            ]
+          },
+          "change_type": {
+            "type": "string",
+            "enum": ["score_update", "disambiguator_add", "rubric_anchor_add", "scenario_refinement", "rule_addition"]
+          },
+          "before": { "type": "string" },
+          "after": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["pending", "approved", "rejected", "deferred"],
+      "default": "pending"
+    },
+    "approved_by": { "type": "string" },
+    "approved_at": { "type": "string", "format": "date-time" }
+  }
+}

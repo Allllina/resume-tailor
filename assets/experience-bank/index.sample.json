@@ -1,0 +1,346 @@
+{
+  "schema_version": "0.2.0",
+  "generated_at": "2026-05-08",
+  "_sample": true,
+  "_sample_note": "D11 sample data. Real-user index lives at index.json (gitignored). 3 sample personas: Zhang Ming (strategy) / Li Wen (data) / Wang Yu (product ops AI).",
+  "source_of_truth": [
+    "assets/profile/user-profile.sample.md",
+    "assets/experience-bank/raw.sample/*.md"
+  ],
+  "notes": [
+    "Sample index for D11 fresh-clone fallback. Same schema shape as production index.json.",
+    "Score cells use the rubric shapes from assets/knowledge-base/references/recognition-rubric.md and vertical-fit-rubric.md."
+  ],
+  "schema_refs": {
+    "recognition_rubric": "assets/knowledge-base/references/recognition-rubric.md",
+    "vertical_fit_rubric": "assets/knowledge-base/references/vertical-fit-rubric.md",
+    "industry_columns": [
+      "internet_strategic",
+      "internet_operational",
+      "internet_pm",
+      "consulting",
+      "auto_tech",
+      "consumer_research",
+      "finance",
+      "human_capital"
+    ],
+    "lens_columns": [
+      "A_strategy_research",
+      "B_data_analytics",
+      "C_product_ops",
+      "D_finance_markets",
+      "HC_human_capital"
+    ]
+  },
+  "experiences": [
+    {
+      "id": "01-strategy-consulting",
+      "company": "Acme Strategy Group",
+      "company_zh": "Acme Strategy Group",
+      "role": "Strategy Analyst Intern",
+      "period": "Jun-Oct 2025",
+      "source_file": "assets/experience-bank/raw.sample/01-strategy-consulting.md",
+      "one_line": "Five-year strategy framework for an EV OEM, SE-Asia market entry sub-study, and steel decarbonization sub-task.",
+      "capability_tags": [
+        "industry research",
+        "competitive analysis",
+        "strategy planning",
+        "market entry",
+        "value chain analysis",
+        "policy research"
+      ],
+      "role_family_relevance": [
+        "strategy",
+        "consulting",
+        "business analysis",
+        "market research"
+      ],
+      "proof_strength": "high",
+      "resume_versions": ["A", "B", "C"],
+      "recognition_per_industry": {
+        "internet_strategic": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "二线战略咨询品牌；互联网商分招聘方对此类品牌识别度仍在但非顶级 anchor"
+        },
+        "internet_operational": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "互联网 native 招聘方对战略咨询品牌识别度足够，但不视作 ops sense 强信号"
+        },
+        "internet_pm": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "战略品牌可见但非产品 sense 强信号"
+        },
+        "consulting": {
+          "score": "high",
+          "evidence_strength": "inferred",
+          "rationale": "战略咨询行业内品牌识别度高"
+        },
+        "auto_tech": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "项目主线含新能源整车，对汽车行业招聘方有 transferable signal"
+        },
+        "consumer_research": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "项目非 FMCG / 市调 specific"
+        },
+        "finance": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "战略咨询对金融招聘方有 transferable signal，但非 IB / research focus"
+        },
+        "human_capital": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "无 HR / 组织 / 任职资格相关素材"
+        }
+      },
+      "disambiguator_per_industry": {
+        "internet_strategic": "二线战略咨询，新能源整车 + 东南亚出海 + 重工三案例覆盖",
+        "auto_tech": "项目含新能源整车赛道选择 + 全球合作标的筛选"
+      },
+      "_disambiguator_note": "示例样本，仅为 R-7 disambiguator pipeline 演示用。",
+      "vertical_fit_per_lens": {
+        "A_strategy_research": {
+          "score": "core",
+          "evidence_strength": "direct_bullet",
+          "anchor_projects": ["新能源整车十五五战略框架", "东南亚出海子课题", "钢铁双碳"],
+          "rationale": "项目本质就是行业研究 + 竞争格局 + 战略选择，A 维 5 项能力直接命中"
+        },
+        "B_data_analytics": {
+          "score": "adjacent",
+          "evidence_strength": "direct_capability_tag",
+          "rationale": "市场容量测算 / 三轴打分模型有结构化数据工作，但非 SQL / 建模深度"
+        },
+        "C_product_ops": {
+          "score": "adjacent",
+          "evidence_strength": "inferred",
+          "rationale": "战略思维 / 行业研究方法可迁移到产品策略，但无 product / ops 直接素材"
+        },
+        "D_finance_markets": {
+          "score": "weak",
+          "evidence_strength": "inferred",
+          "rationale": "有市场容量 / 增长预测但非财务建模 / 估值视角"
+        },
+        "HC_human_capital": {
+          "score": "weak",
+          "evidence_strength": "none",
+          "rationale": "无 HR / 组织 / 任职资格相关素材"
+        }
+      },
+      "ai_digital_fluency": {
+        "score": "weak",
+        "evidence_strength": "inferred",
+        "rationale": "传统咨询项目，无 AI 工具实操或自建 pipeline 体现"
+      }
+    },
+    {
+      "id": "02-data-analytics",
+      "company": "BlueWave SaaS",
+      "company_zh": "BlueWave SaaS",
+      "role": "Data Analytics Intern",
+      "period": "Jun-Sep 2024",
+      "source_file": "assets/experience-bank/raw.sample/02-data-analytics.md",
+      "one_line": "1.2M-user pricing A/B test, RFM-based segmentation pipeline, Q3 retention anomaly attribution.",
+      "capability_tags": [
+        "A/B testing",
+        "experiment design",
+        "SQL pipeline",
+        "dashboard",
+        "user segmentation",
+        "anomaly attribution"
+      ],
+      "role_family_relevance": [
+        "data analytics",
+        "business analysis",
+        "product analytics"
+      ],
+      "proof_strength": "high",
+      "resume_versions": ["B", "C"],
+      "recognition_per_industry": {
+        "internet_strategic": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "中型 SaaS 公司在互联网商分招聘方眼中识别度中等"
+        },
+        "internet_operational": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "SaaS 业务方法论与互联网 ops 同构"
+        },
+        "internet_pm": {
+          "score": "high",
+          "evidence_strength": "inferred",
+          "rationale": "SaaS 产品分析强信号；A/B + 分群 + 异动归因是 PM 核心方法论"
+        },
+        "consulting": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "战略咨询招聘方对 SaaS in-house 分析认可度有限"
+        },
+        "auto_tech": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "与汽车行业 vertical 契合度弱"
+        },
+        "consumer_research": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "B2B SaaS 与消费市调差异大"
+        },
+        "finance": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "in-house 数据分析与金融研究 / IB 关联弱"
+        },
+        "human_capital": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "与 HR 咨询无关"
+        }
+      },
+      "disambiguator_per_industry": null,
+      "_disambiguator_note": "公司名足够 self-explanatory，无需 disambiguator",
+      "vertical_fit_per_lens": {
+        "A_strategy_research": {
+          "score": "weak",
+          "evidence_strength": "inferred",
+          "rationale": "无行业研究 / 战略选择直接素材，仅有 dashboard 层数据视角"
+        },
+        "B_data_analytics": {
+          "score": "core",
+          "evidence_strength": "direct_bullet",
+          "anchor_projects": ["核心订阅漏斗 A/B 测试", "用户分群体系", "Q3 留存异动归因"],
+          "rationale": "项目内容直接命中 B 维 5 项能力（建模 / SQL / 业务指标 / 异动归因 / A/B）"
+        },
+        "C_product_ops": {
+          "score": "adjacent",
+          "evidence_strength": "direct_capability_tag",
+          "rationale": "用户分群 + 召回 campaign 与 product ops 增长漏斗强同构"
+        },
+        "D_finance_markets": {
+          "score": "weak",
+          "evidence_strength": "none",
+          "rationale": "无财务 / 估值 / 资本市场素材"
+        },
+        "HC_human_capital": {
+          "score": "weak",
+          "evidence_strength": "none",
+          "rationale": "无 HR 相关素材"
+        }
+      },
+      "ai_digital_fluency": {
+        "score": "medium",
+        "evidence_strength": "direct_capability_tag",
+        "rationale": "重度使用 dbt / Snowflake / Tableau，是数据栈 modern 用户但未涉 LLM / agent"
+      }
+    },
+    {
+      "id": "03-product-ops",
+      "company": "Beta Products",
+      "company_zh": "Beta Products",
+      "role": "Product Operations Intern (AI)",
+      "period": "Jan-May 2024",
+      "source_file": "assets/experience-bank/raw.sample/03-product-ops.md",
+      "one_line": "Prompt engineering pipeline (4-team enablement, 30% cycle time cut), RAG content workflow, LangChain agent prototype evaluation.",
+      "capability_tags": [
+        "prompt engineering",
+        "RAG",
+        "LangChain agent",
+        "AI evaluation",
+        "internal enablement",
+        "product ops"
+      ],
+      "role_family_relevance": [
+        "product operations",
+        "AI ops",
+        "AI product"
+      ],
+      "proof_strength": "high",
+      "resume_versions": ["B", "C"],
+      "recognition_per_industry": {
+        "internet_strategic": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "Beta Products 是 mid-tier AI 公司，在互联网商分语境识别度有限"
+        },
+        "internet_operational": {
+          "score": "high",
+          "evidence_strength": "inferred",
+          "rationale": "AI 产品运营是当下互联网 ops 招聘方核心需求；项目直接命中"
+        },
+        "internet_pm": {
+          "score": "medium",
+          "evidence_strength": "inferred",
+          "rationale": "PM 招聘方关注点更偏产品 sense，本经历偏 ops 落地"
+        },
+        "consulting": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "Beta Products 与战略咨询无关"
+        },
+        "auto_tech": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "无汽车行业相关素材"
+        },
+        "consumer_research": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "无消费 / 市调相关素材"
+        },
+        "finance": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "无金融相关素材"
+        },
+        "human_capital": {
+          "score": "low",
+          "evidence_strength": "inferred",
+          "rationale": "无 HR 相关素材"
+        }
+      },
+      "disambiguator_per_industry": {
+        "internet_operational": "AI 内部赋能 + RAG 工作流 + agent 评估，AI ops focus"
+      },
+      "_disambiguator_note": "公司名通用，需 disambiguator 区分 AI focus vs 普通 product ops",
+      "vertical_fit_per_lens": {
+        "A_strategy_research": {
+          "score": "weak",
+          "evidence_strength": "inferred",
+          "rationale": "无行业研究 / 战略选择素材，agent go-no-go 仅是技术 trade-off"
+        },
+        "B_data_analytics": {
+          "score": "adjacent",
+          "evidence_strength": "direct_capability_tag",
+          "rationale": "评测 rubric 设计 / hallucination rate measurement 与 analytics 同构，但非 SQL / 业务指标"
+        },
+        "C_product_ops": {
+          "score": "core",
+          "evidence_strength": "direct_bullet",
+          "anchor_projects": ["prompt engineering pipeline", "RAG 内容工作流", "LangChain agent 原型"],
+          "rationale": "三个项目都是 product ops 流程优化 + AI 工具落地，C 维 5 项能力直接命中"
+        },
+        "D_finance_markets": {
+          "score": "weak",
+          "evidence_strength": "none",
+          "rationale": "无财务 / 估值素材"
+        },
+        "HC_human_capital": {
+          "score": "weak",
+          "evidence_strength": "none",
+          "rationale": "无 HR 素材，仅有跨团队赋能 transferable"
+        }
+      },
+      "ai_digital_fluency": {
+        "score": "strong",
+        "evidence_strength": "direct_bullet",
+        "rationale": "三个项目全部围绕 AI 工具落地：prompt / RAG / agent。LangChain + RAG + 评测三件套是 production-grade AI ops 标志"
+      }
+    }
+  ]
+}

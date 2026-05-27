@@ -1,0 +1,67 @@
+{
+  "_method": "llm",
+  "competitiveness_rating": "above_mid",
+  "requirements": [
+    {
+      "text": "5+ years senior product management experience with B2B SaaS",
+      "verdict": "strong_match",
+      "evidence": "6 years PM at Stripe + Notion across pricing + onboarding surfaces; ARR delta cited per launch.",
+      "source": "section_b_priority"
+    },
+    {
+      "text": "Track record of cross-functional leadership (Eng / Design / GTM)",
+      "verdict": "strong_match",
+      "evidence": "Led 3 cross-org launches each spanning 4+ teams; documented via post-mortem deck quoted in the OKR review.",
+      "source": "section_b_priority"
+    },
+    {
+      "text": "Quantitative analysis — SQL, dashboard literacy, A/B test design",
+      "verdict": "transferable",
+      "evidence": "SQL proficiency from analytics rotation; A/B test ownership exists but framed as 'feature impact analysis' rather than experimentation.",
+      "source": "section_c_tier_1"
+    },
+    {
+      "text": "Domain experience in payments / fintech",
+      "verdict": "strong_match",
+      "evidence": "Stripe role was payments-adjacent (subscription pricing + invoicing).",
+      "source": "section_c_tier_1"
+    },
+    {
+      "text": "Stakeholder management at executive level",
+      "verdict": "transferable",
+      "evidence": "Board-deck contributions exist but framed as PM input rather than direct ownership; needs angle adjustment in the bullet.",
+      "source": "section_c_tier_2"
+    },
+    {
+      "text": "Technical writing — RFC / spec / 1-pager output",
+      "verdict": "strong_match",
+      "evidence": "Multiple RFCs cited verbatim in the experience bank; one became a public engineering blog post.",
+      "source": "section_c_tier_2"
+    },
+    {
+      "text": "ML / data science fluency",
+      "verdict": "missing",
+      "evidence": "No applied-ML or model-shipping experience surfaces in the experience trace; only ML-adjacent ('data product') framing.",
+      "source": "section_c_tier_3"
+    },
+    {
+      "text": "International / multi-market product experience",
+      "verdict": "missing",
+      "evidence": "All shipped surfaces are US/EN; no APAC or LatAm market launches.",
+      "source": "section_c_tier_3"
+    }
+  ],
+  "integrated_assessment": "Strong product + payments + cross-functional leadership profile that maps directly to the JD's top 4 priorities. The biggest gap is applied-ML experience, which the JD lists as Tier 3 nice-to-have rather than Tier 1 — likely surface-able as 'data-informed PM' framing. Quantitative depth is present but underspecified in current bullets. Projected as competitive for the screen but will need to address ML and international scope in interview.",
+  "optimization_boundary": {
+    "can_solve": [
+      "Re-frame existing A/B test work using JD's experimentation vocabulary",
+      "Surface SQL + dashboard work that's currently buried in a 'data analysis' bullet",
+      "Move executive-stakeholder evidence to top half of resume",
+      "Add 'data-informed PM' framing to ML-adjacent bullets without overclaiming"
+    ],
+    "cannot_solve": [
+      "Applied ML / model-shipping is genuinely absent — cannot be wordsmithed",
+      "International market launches are absent — would require fabrication"
+    ]
+  }
+}

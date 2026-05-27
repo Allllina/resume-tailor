@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/submit-audit.schema.json",
+  "title": "Submit Audit Record",
+  "description": "Per-submit log entry persisted to SQLite for blacklist post-mortem and daily-cap accounting.",
+  "type": "object",
+  "required": ["audit_id", "draft_id", "channel", "method", "outcome", "timestamp"],
+  "properties": {
+    "audit_id": { "type": "string", "format": "uuid" },
+    "draft_id": { "type": "string" },
+    "channel": { "type": "string" },
+    "method": { "type": "string" },
+    "outcome": {
+      "type": "string",
+      "enum": ["submitted", "user_cancelled", "rate_limited", "cap_exceeded", "form_error", "auth_failed", "blocked_by_target", "skipped"]
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "tex_artifact_path": { "type": "string" },
+    "submit_url": { "type": "string" },
+    "elapsed_seconds": { "type": "number" },
+    "error_detail": {
+      "type": "string",
+      "description": "Human-readable failure reason if outcome is not 'submitted'."
+    },
+    "ip_or_session_signature": {
+      "type": "string",
+      "description": "Anonymized signature used for fingerprint risk analysis. Don't store raw IP."
+    }
+  },
+  "additionalProperties": false
+}

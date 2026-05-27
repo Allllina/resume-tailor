@@ -1,0 +1,756 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/harness-tailor-output.schema.json",
+  "title": "Harness Tailor Output",
+  "description": "Tailoring run output: .tex artifact + audit log + Pass 3 trace + metrics events. Produced by Harness REPL at end of one tailoring run.",
+  "type": "object",
+  "required": ["run_id", "input_ref", "verdict", "tier_assigned", "matched_resume_version", "tex_artifact_path", "trace", "metrics"],
+  "properties": {
+    "run_id": { "type": "string", "format": "uuid" },
+    "input_ref": { "type": "string", "description": "Path to the harness-tailor-input.json that drove this run" },
+    "verdict": {
+      "type": "string",
+      "enum": ["complete", "partial_pending_user", "failed", "degraded_to_manual", "degraded_no_substance", "user_aborted"],
+      "description": "complete = .tex ready AND R-18 quality floor passed; partial_pending_user = Pass 3 has [需人工] flags; failed = unrecoverable; degraded_to_manual = Pass 3 itself crashed but fallback emitted .tex; degraded_no_substance = .tex emitted but R-18 quality floor failed — one or more of: fit_diagnosis_post_rewrite._method not in {llm,llm_partial}, competitiveness_rating below above_mid, or pass3_verdict absent/failed. UI surfaces a banner explaining the cause and disables Submit. user_aborted = Mode B user discarded mid-wizard."
+    },
+    "tier_assigned": {
+      "type": "integer",
+      "enum": [1, 2, 3]
+    },
+    "matched_resume_version": {
+      "type": "string",
+      "enum": ["A_strategy_research", "B_data_analytics", "C_product_ops", "D_finance_markets", "HC_human_capital", "custom"]
+    },
+    "lens_routing": {
+      "type": "object",
+      "properties": {
+        "primary_lens": { "type": "string" },
+        "secondary_lens": { "type": "string" },
+        "blend_ratio": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "scenario_loaded": { "type": "string" }
+      }
+    },
+    "experience_selection_trace": {
+      "type": "array",
+      "description": "Per-experience 3-pass selection log (R-8 enforcement)",
+      "items": {
+        "type": "object",
+        "required": ["experience_id", "pass_a_tier", "pass_b_tier", "pass_c_tier", "final_category"],
+        "properties": {
+          "experience_id": { "type": "string" },
+          "pass_a_tier": { "type": "string", "enum": ["必上展开", "上展开", "单bullet", "backup行", "砍"] },
+          "pass_b_tier": { "type": "string", "enum": ["必上展开", "上展开", "单bullet", "backup行", "砍"] },
+          "pass_b_lift": { "type": "string", "enum": ["mis_classification", "pure_recognition", "none"] },
+          "pass_c_tier": { "type": "string", "enum": ["必上展开", "上展开", "单bullet", "backup行", "砍"] },
+          "pass_c_ai_pressure": { "type": "string", "enum": ["none", "weak_minus_1", "none_minus_2"] },
+          "final_category": { "type": "integer", "enum": [1, 2, 3, 4] }
+        }
+      }
+    },
+    "tex_artifact_path": { "type": "string" },
+    "pdf_artifact_path": { "type": "string" },
+    "trace": {
+      "type": "object",
+      "description": "Per-stage PPAF trace events",
+      "properties": {
+        "perception_events": { "type": "array", "items": {} },
+        "planning_events": { "type": "array", "items": {} },
+        "action_events": { "type": "array", "items": {} },
+        "feedback_events": { "type": "array", "items": {} }
+      }
+    },
+    "pass3_trace": {
+      "type": "object",
+      "description": "Pass 3 verifier output summary (per pass3-verifier-io.schema.json)",
+      "properties": {
+        "verdict": { "type": "string", "enum": ["complete", "partial", "failed"] },
+        "verified_facts_count": { "type": "integer" },
+        "unsourced_claims_count": { "type": "integer" },
+        "ask_user_count": { "type": "integer" }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "total_tokens": { "type": "integer" },
+        "total_claude_calls": { "type": "integer" },
+        "elapsed_seconds": { "type": "number" },
+        "cost_usd": { "type": "number" }
+      }
+    },
+    "degradation_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage": { "type": "string" },
+          "reason": { "type": "string" },
+          "fallback_taken": { "type": "string" }
+        }
+      }
+    },
+    "jd_context": {
+      "type": "object",
+      "description": "Cached subset of the input JD for UI rendering on the review page. Backend snapshots these from the request at run-creation time so the run-detail endpoint can serve them without re-reading input_ref.",
+      "properties": {
+        "raw_text": { "type": "string" },
+        "company_hint": { "type": "string" },
+        "role_title_hint": { "type": "string" },
+        "location_hint": { "type": "string" },
+        "target_market": { "type": "string", "enum": ["north-america", "mainland-china", "hong-kong"] },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "change_cards": {
+      "type": "array",
+      "description": "UI-ready before/after diff cards rendered on the review page. Backend computes these from action-stage events (skills_reordered / project_retitled / summary_written / label_rewritten) so the UI does not need to interpret raw events.",
+      "items": {
+        "type": "object",
+        "required": ["title", "before", "after"],
+        "properties": {
+          "title": { "type": "string", "description": "Short label for the change (e.g. 'Skills row reordered', 'Summary regenerated')." },
+          "before": { "type": "string", "description": "Original content from the master resume." },
+          "after": { "type": "string", "description": "New content after Tier 1 transform." },
+          "note": { "type": "string", "description": "Optional one-line explanation of why the change was made (e.g. 'AI 工具 → first (was second)')." },
+          "source_event": { "type": "string", "description": "Pointer to the event in trace.action_events that produced this card (debugging aid)." }
+        }
+      }
+    },
+    "match_scores": {
+      "type": "object",
+      "description": "Tier verdict per ARCHITECTURE.md §7a/b. Currently a closed-form approximation; replaced by Pass A→B→C selector output in Wave 4.",
+      "properties": {
+        "resume_match_score": { "type": "number", "minimum": 0, "maximum": 100 },
+        "confidence_tier": { "type": "string", "enum": ["ready_to_go", "review_recommended", "needs_deep_rewrite"] },
+        "method": { "type": "string", "description": "Algorithm version that produced this score (e.g. 'tier1_approximation' / 'pass_c_full')." },
+        "degradation_count": { "type": "integer", "minimum": 0 },
+        "lens_routing_confidence": { "type": ["number", "null"] }
+      }
+    },
+    "substance_check": {
+      "type": "object",
+      "description": "Gate 1 (v0.7.0, R-18 v2) — quality floor applied post-action. passes=true requires competitiveness_rating ∈ {above_mid,high} AND pass3_verdict ∈ {complete,partial}. The post_rewrite_method gate (v1) is removed: Phase 2.A-C raises SubSkillUnavailable → 503 before a run can produce fallback_no_llm, so the method gate is unreachable in production. When passes=false the loop demotes verdict to 'degraded_no_substance' and UI surfaces a banner. Optional — pre-Gate-1 state.json files omit it; readers default to substance_check absent → treat as 'unverified / legacy'.",
+      "required": ["passes", "competitiveness_rating", "post_rewrite_method", "pass3_verdict", "method_version"],
+      "additionalProperties": false,
+      "properties": {
+        "passes": {
+          "type": "boolean",
+          "description": "True iff R-18 v2 quality-floor conditions met: competitiveness_rating ∈ {above_mid,high} AND pass3_verdict ∈ {complete,partial}."
+        },
+        "competitiveness_rating": {
+          "type": "string",
+          "enum": ["high", "above_mid", "mid", "below_mid", "low", "unknown"],
+          "description": "Mirror of fit_diagnosis_post_rewrite.competitiveness_rating. 'unknown' when post_rewrite didn't run. R-18 v2 requires above_mid or high to pass."
+        },
+        "post_rewrite_method": {
+          "type": "string",
+          "enum": ["llm", "llm_partial", "absent"],
+          "description": "Mirror of fit_diagnosis_post_rewrite._method. 'absent' when state.fit_diagnosis_post_rewrite is None. No longer gates the verdict (Phase 2.D); retained for observability."
+        },
+        "pass3_verdict": {
+          "type": "string",
+          "enum": ["complete", "partial", "failed", "absent"],
+          "description": "Mirror of state.pass3_trace.verdict. 'absent' when Pass 3 didn't run. R-18 v2 requires complete or partial to pass."
+        },
+        "method_version": {
+          "type": "string",
+          "description": "Version tag for the substance_check algorithm. 'r18_quality_v2' (Phase 2.D, v0.7.0) — two-condition gate. 'r18_quality_v1' (v0.6.1) — three-condition gate including post_method."
+        },
+        "diagnostic_failed_sub_skills": {
+          "type": "array",
+          "description": "DIAGNOSTIC — sub-skills observed with _method=fallback_no_llm. Always [] post-Phase-2 (SubSkillUnavailable → 503 before reaching here); retained for schema compatibility and legacy state reads.",
+          "items": {
+            "type": "string",
+            "enum": ["lens_router", "role_competency_extractor", "fit_diagnosis_pre_rewrite", "fit_diagnosis_post_rewrite", "gap_bridging_planner", "resume_rewrite_engine", "summary_writer", "quality_pass_runner"]
+          },
+          "uniqueItems": true
+        },
+        "diagnostic_change_card_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "DIAGNOSTIC — length of state.change_cards. Surfaced in banner for transparency. Does NOT participate in verdict gate."
+        }
+      }
+    },
+    "competency_model": {
+      "type": "object",
+      "description": "Wave 4 Step B — 9-section role competency model (see contracts/schemas/competency-model.schema.json + packages/strategy-modules/role-competency-extractor/output-schema.md). Optional; populated when the role-competency-extractor ran during PLANNING. Raises SubSkillUnavailable → 503 if LLM extraction fails (Phase 2.A)."
+    },
+    "rewrite_engine_output": {
+      "type": "object",
+      "description": "Wave 4 D.2b — 10-section rewrite output from harness/rewrite/engine.py. Populated for Tier 2/3 runs (Tier 1 skips the engine entirely). See contracts/schemas/rewrite-engine-output.schema.json for the full shape (10 sections A-J + _method). This block intentionally uses additionalProperties: true so the harness-tailor-output schema only enforces presence; the standalone rewrite-engine-output schema validates the inner shape independently.",
+      "additionalProperties": true
+    },
+    "quality_pass_report": {
+      "type": "object",
+      "description": "Wave 5 P2 — quality-pass-runner output for Step 6.5 Pass 1.5 Chinese readability and Pass 2 R-11 AI-tone cleanup, run before Pass 3. See packages/strategy-modules/quality-pass-runner/output-schema.md.",
+      "required": [
+        "schema_version",
+        "sub_skill",
+        "target_market",
+        "ppaf_stage",
+        "invoked_at",
+        "inputs_signature",
+        "final_resume_text",
+        "aggregate_verdict",
+        "pending_user_review_flag",
+        "confidence",
+        "_method",
+        "pass_1_keyword_injection",
+        "pass_1_5_chinese_readability",
+        "pass_2_ai_taste_removal",
+        "pass_3_truthfulness"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "type": "string", "enum": ["1.0.0"] },
+        "sub_skill": { "type": "string", "enum": ["quality-pass-runner"] },
+        "target_market": { "type": "string", "enum": ["north-america", "mainland-china", "hong-kong"] },
+        "ppaf_stage": { "type": "string", "enum": ["late_feedback"] },
+        "invoked_at": { "type": "string", "format": "date-time" },
+        "inputs_signature": {
+          "type": "object",
+          "required": ["rewritten_resume_hash", "competency_profile_id", "experience_bank_version"],
+          "additionalProperties": false,
+          "properties": {
+            "rewritten_resume_hash": { "type": "string" },
+            "competency_profile_id": { "type": "string" },
+            "experience_bank_version": { "type": "string" }
+          }
+        },
+        "final_resume_text": { "type": "string" },
+        "aggregate_verdict": { "type": "string", "enum": ["pass", "partial_pending_user", "fail"] },
+        "pending_user_review_flag": { "type": "boolean" },
+        "confidence": { "type": "string", "enum": ["high", "moderate", "low"] },
+        "_method": { "type": "string", "enum": ["llm", "llm_partial", "fallback_no_llm"] },
+        "pass_1_keyword_injection": {
+          "type": "object",
+          "required": ["injected_keywords", "hit_rate_before", "hit_rate_after", "unable_to_inject", "verdict"],
+          "additionalProperties": false,
+          "properties": {
+            "injected_keywords": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["keyword", "target_location", "injection_method"],
+                "additionalProperties": false,
+                "properties": {
+                  "keyword": { "type": "string" },
+                  "target_location": { "type": "string" },
+                  "injection_method": { "type": "string", "enum": ["title_keyword", "inline_phrase", "skill_bar", "summary_addition"] }
+                }
+              }
+            },
+            "hit_rate_before": { "type": "string" },
+            "hit_rate_after": { "type": "string" },
+            "unable_to_inject": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["keyword", "reason"],
+                "additionalProperties": false,
+                "properties": {
+                  "keyword": { "type": "string" },
+                  "reason": { "type": "string" }
+                }
+              }
+            },
+            "verdict": { "type": "string", "enum": ["pass", "partial", "fail"] }
+          }
+        },
+        "pass_1_5_chinese_readability": {
+          "type": "object",
+          "required": ["enabled", "flagged_phrases", "preserved_english_terms", "verdict", "_method"],
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "flagged_phrases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["original", "replacement", "reason"],
+                "additionalProperties": false,
+                "properties": {
+                  "original": { "type": "string" },
+                  "replacement": { "type": "string" },
+                  "reason": { "type": "string", "enum": ["english_direct_translation", "non_universal_abbreviation"] }
+                }
+              }
+            },
+            "preserved_english_terms": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["term", "reason"],
+                "additionalProperties": false,
+                "properties": {
+                  "term": { "type": "string" },
+                  "reason": { "type": "string" }
+                }
+              }
+            },
+            "verdict": { "type": "string", "enum": ["pass", "partial", "fail"] },
+            "_method": { "type": "string", "enum": ["llm", "llm_partial", "fallback_no_llm"] }
+          }
+        },
+        "pass_2_ai_taste_removal": {
+          "type": "object",
+          "required": ["replacements_applied", "protected_skipped", "verdict", "_method"],
+          "additionalProperties": false,
+          "properties": {
+            "replacements_applied": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["original", "replacement", "location"],
+                "additionalProperties": false,
+                "properties": {
+                  "original": { "type": "string" },
+                  "replacement": { "type": "string" },
+                  "location": { "type": "string" }
+                }
+              }
+            },
+            "protected_skipped": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["term", "reason"],
+                "additionalProperties": false,
+                "properties": {
+                  "term": { "type": "string" },
+                  "reason": { "type": "string", "enum": ["in_jd", "candidate_idiom_authentic"] }
+                }
+              }
+            },
+            "verdict": { "type": "string", "enum": ["pass", "partial", "fail"] },
+            "_method": { "type": "string", "enum": ["llm", "llm_partial", "fallback_no_llm"] }
+          }
+        },
+        "pass_3_truthfulness": {
+          "type": "object",
+          "required": ["verified_claims_count", "unsourced_claims", "identity_lock_check", "identity_lock_violations", "verdict"],
+          "additionalProperties": false,
+          "properties": {
+            "verified_claims_count": { "type": "integer" },
+            "unsourced_claims": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["claim", "location", "severity", "type"],
+                "additionalProperties": false,
+                "properties": {
+                  "claim": { "type": "string" },
+                  "location": { "type": "string" },
+                  "severity": { "type": "string", "enum": ["high", "medium"] },
+                  "type": { "type": "string", "enum": ["quantification", "scope", "role_description", "other"] }
+                }
+              }
+            },
+            "identity_lock_check": { "type": "string", "enum": ["pass", "fail"] },
+            "identity_lock_violations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["field", "resume_value", "source_value"],
+                "additionalProperties": false,
+                "properties": {
+                  "field": { "type": "string" },
+                  "resume_value": { "type": "string" },
+                  "source_value": { "type": "string" }
+                }
+              }
+            },
+            "verdict": { "type": "string", "enum": ["pass", "partial_pending_user", "fail"] }
+          }
+        }
+      }
+    },
+    "fit_diagnosis_pre_rewrite": {
+      "type": "object",
+      "description": "Wave 5 F1 — fit-diagnosis-engine sub-skill output, pre_rewrite mode (PLANNING-stage Section 4: matching matrix with bridging/closure + integrated assessment + optimization boundary with closure path + optional multi-JD coverage). Populated by harness.fit_diagnosis. See packages/strategy-modules/fit-diagnosis-engine/output-schema.md for the canonical spec.",
+      "required": [
+        "sub_skill",
+        "mode",
+        "target_market",
+        "ppaf_stage",
+        "invoked_at",
+        "inputs_signature",
+        "multi_jd",
+        "confidence",
+        "competitiveness_rating",
+        "_method",
+        "matching_matrix",
+        "integrated_assessment",
+        "optimization_boundary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sub_skill": { "type": "string", "enum": ["fit-diagnosis-engine"] },
+        "mode": { "type": "string", "enum": ["pre_rewrite", "post_rewrite"] },
+        "target_market": { "type": "string", "enum": ["north-america", "mainland-china", "hong-kong"] },
+        "ppaf_stage": { "type": "string", "enum": ["planning", "late_feedback"] },
+        "invoked_at": { "type": "string", "format": "date-time" },
+        "inputs_signature": {
+          "type": "object",
+          "required": ["jd_analysis_id", "competency_profile_id", "current_resume_hash"],
+          "additionalProperties": false,
+          "properties": {
+            "jd_analysis_id": { "type": "string" },
+            "competency_profile_id": { "type": "string" },
+            "current_resume_hash": { "type": ["string", "null"] }
+          }
+        },
+        "multi_jd": { "type": "boolean" },
+        "confidence": { "type": "string", "enum": ["high", "moderate", "low"] },
+        "competitiveness_rating": { "type": "string", "enum": ["high", "above_mid", "mid", "below_mid", "low"] },
+        "_method": { "type": "string", "enum": ["llm", "llm_partial", "fallback_no_llm"] },
+        "matching_matrix": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "required": ["text", "evidence", "verdict", "source", "bridging_or_closure"],
+            "additionalProperties": false,
+            "properties": {
+              "text": { "type": "string" },
+              "evidence": { "type": "string" },
+              "verdict": { "type": "string", "enum": ["strong_match", "transferable", "missing"] },
+              "source": { "type": "string", "enum": ["section_b_priority", "section_c_tier_1", "section_c_tier_2", "section_c_tier_3"] },
+              "bridging_or_closure": { "type": "string" }
+            }
+          }
+        },
+        "integrated_assessment": { "type": "string" },
+        "optimization_boundary": {
+          "type": "object",
+          "required": ["rewriting_can_solve", "rewriting_cannot_solve"],
+          "additionalProperties": false,
+          "properties": {
+            "rewriting_can_solve": { "type": "array", "items": { "type": "string" } },
+            "rewriting_cannot_solve": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "multi_jd_coverage": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "required": ["jd_id", "jd_title", "coverage_pct", "note"],
+            "additionalProperties": false,
+            "properties": {
+              "jd_id": { "type": "string" },
+              "jd_title": { "type": "string" },
+              "coverage_pct": { "type": "integer", "minimum": 0, "maximum": 100 },
+              "note": { "type": "string", "maxLength": 50 }
+            }
+          }
+        },
+        "spread_flag": { "type": ["boolean", "null"] }
+      }
+    },
+    "fit_diagnosis_post_rewrite": {
+      "type": "object",
+      "description": "Wave 5 F3 — fit-diagnosis-engine sub-skill output, post_rewrite mode (late-FEEDBACK Section 8: HM + HRBP simulation + 6-axis radar with citations + improvement suggestions). Populated by harness.fit_diagnosis after rewrite. See packages/strategy-modules/fit-diagnosis-engine/output-schema.md.",
+      "required": [
+        "sub_skill",
+        "mode",
+        "target_market",
+        "ppaf_stage",
+        "invoked_at",
+        "inputs_signature",
+        "multi_jd",
+        "confidence",
+        "competitiveness_rating",
+        "_method",
+        "hm",
+        "hrbp",
+        "radar",
+        "improvement_suggestions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sub_skill": { "type": "string", "enum": ["fit-diagnosis-engine"] },
+        "mode": { "type": "string", "enum": ["pre_rewrite", "post_rewrite"] },
+        "target_market": { "type": "string", "enum": ["north-america", "mainland-china", "hong-kong"] },
+        "ppaf_stage": { "type": "string", "enum": ["planning", "late_feedback"] },
+        "invoked_at": { "type": "string", "format": "date-time" },
+        "inputs_signature": {
+          "type": "object",
+          "required": ["jd_analysis_id", "competency_profile_id", "current_resume_hash"],
+          "additionalProperties": false,
+          "properties": {
+            "jd_analysis_id": { "type": "string" },
+            "competency_profile_id": { "type": "string" },
+            "current_resume_hash": { "type": ["string", "null"] }
+          }
+        },
+        "multi_jd": { "type": "boolean" },
+        "confidence": { "type": "string", "enum": ["high", "moderate", "low"] },
+        "competitiveness_rating": { "type": "string", "enum": ["high", "above_mid", "mid", "below_mid", "low"] },
+        "_method": { "type": "string", "enum": ["llm", "llm_partial", "fallback_no_llm"] },
+        "hm": {
+          "type": "object",
+          "required": ["highlights", "concerns", "comparison_risk"],
+          "additionalProperties": false,
+          "properties": {
+            "highlights": { "type": "array", "items": { "type": "string" } },
+            "concerns": { "type": "array", "items": { "type": "string" } },
+            "comparison_risk": { "type": "string" }
+          }
+        },
+        "hrbp": {
+          "type": "object",
+          "required": ["keyword_hit_rate", "hard_filter_match", "advance_decision", "decision_rationale"],
+          "additionalProperties": false,
+          "properties": {
+            "keyword_hit_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "hard_filter_match": {
+              "type": "object",
+              "additionalProperties": { "type": "string", "enum": ["match", "mismatch", "uncertain"] }
+            },
+            "advance_decision": { "type": "string", "enum": ["push_direct", "push_with_note", "screen_out"] },
+            "decision_rationale": { "type": "string" }
+          }
+        },
+        "radar": {
+          "type": "object",
+          "required": ["dimensions"],
+          "additionalProperties": false,
+          "properties": {
+            "dimensions": {
+              "type": "array",
+              "minItems": 6,
+              "maxItems": 6,
+              "items": {
+                "type": "object",
+                "required": ["name", "resume_score", "jd_required", "citation"],
+                "additionalProperties": false,
+                "properties": {
+                  "name": { "type": "string" },
+                  "resume_score": { "type": "number", "minimum": 0, "maximum": 100 },
+                  "jd_required": { "type": "number", "minimum": 0, "maximum": 100 },
+                  "citation": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "improvement_suggestions": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "required": ["text", "effort"],
+            "additionalProperties": false,
+            "properties": {
+              "text": { "type": "string" },
+              "effort": { "type": "string", "enum": ["wording", "supplement_project", "long_term"] }
+            }
+          }
+        }
+      }
+    },
+    "gap_bridging": {
+      "type": "object",
+      "description": "Wave 5 F6 — gap-bridging-planner output (Step 5a reframe, 5b add, 5c skill-gap and structural plan) produced after fit_diagnosis_pre_rewrite and before rewrite.",
+      "required": [
+        "sub_skill",
+        "target_market",
+        "ppaf_stage",
+        "invoked_at",
+        "inputs_signature",
+        "application_timeline",
+        "confidence",
+        "multi_jd_conflict_flag",
+        "_method",
+        "reframe_directives",
+        "add_suggestions",
+        "skill_bar_adjustments",
+        "section_ordering",
+        "multi_jd_conflict"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sub_skill": { "type": "string", "enum": ["gap-bridging-planner"] },
+        "target_market": { "type": "string", "enum": ["north-america", "mainland-china", "hong-kong"] },
+        "ppaf_stage": { "type": "string", "enum": ["planning"] },
+        "invoked_at": { "type": "string", "format": "date-time" },
+        "inputs_signature": {
+          "type": "object",
+          "required": ["fit_diagnosis_id", "competency_profile_id"],
+          "additionalProperties": false,
+          "properties": {
+            "fit_diagnosis_id": { "type": "string" },
+            "competency_profile_id": { "type": "string" }
+          }
+        },
+        "application_timeline": { "type": "string", "enum": ["immediate", "near", "mid"] },
+        "confidence": { "type": "string", "enum": ["high", "moderate", "low"] },
+        "multi_jd_conflict_flag": { "type": "boolean" },
+        "_method": { "type": "string", "enum": ["llm", "llm_partial", "fallback_no_llm"] },
+        "reframe_directives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["matrix_row_id", "target_experience", "target_bullet_id", "keyword_to_inject", "framing_directive", "source_evidence"],
+            "additionalProperties": false,
+            "properties": {
+              "matrix_row_id": { "type": "string" },
+              "target_experience": { "type": "string" },
+              "target_bullet_id": { "type": "string" },
+              "keyword_to_inject": { "type": "string" },
+              "framing_directive": { "type": "string" },
+              "source_evidence": { "type": "string" }
+            }
+          }
+        },
+        "add_suggestions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["gap_label", "horizon", "action", "suggestion"],
+            "additionalProperties": false,
+            "properties": {
+              "gap_label": { "type": "string" },
+              "horizon": { "type": "string", "enum": ["short_term", "mid_term", "not_closeable"] },
+              "action": { "type": "string", "enum": ["plan_now", "defer", "accept"] },
+              "suggestion": { "type": "string" }
+            }
+          }
+        },
+        "skill_bar_adjustments": {
+          "type": "object",
+          "required": ["add_to_bar", "remove_from_bar", "do_not_add"],
+          "additionalProperties": false,
+          "properties": {
+            "add_to_bar": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["skill", "tier", "placement_row", "rationale"],
+                "additionalProperties": false,
+                "properties": {
+                  "skill": { "type": "string" },
+                  "tier": { "type": "string", "enum": ["A", "B"] },
+                  "placement_row": { "type": "string", "enum": ["technical", "ai", "language", "other"] },
+                  "rationale": { "type": "string" }
+                }
+              }
+            },
+            "remove_from_bar": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["skill", "reason"],
+                "additionalProperties": false,
+                "properties": {
+                  "skill": { "type": "string" },
+                  "reason": { "type": "string" }
+                }
+              }
+            },
+            "do_not_add": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["skill", "reason"],
+                "additionalProperties": false,
+                "properties": {
+                  "skill": { "type": "string" },
+                  "reason": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "section_ordering": {
+          "type": "object",
+          "required": ["experience_section_order", "experience_section_emphasis", "missing_sections"],
+          "additionalProperties": false,
+          "properties": {
+            "experience_section_order": { "type": "array", "items": { "type": "string" } },
+            "experience_section_emphasis": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["exp_id", "bullet_count_recommendation", "rationale"],
+                "additionalProperties": false,
+                "properties": {
+                  "exp_id": { "type": "string" },
+                  "bullet_count_recommendation": { "type": "integer", "minimum": 1 },
+                  "rationale": { "type": "string" }
+                }
+              }
+            },
+            "missing_sections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["section_name", "action", "rationale"],
+                "additionalProperties": false,
+                "properties": {
+                  "section_name": { "type": "string" },
+                  "action": { "type": "string", "enum": ["add", "acknowledge_absence"] },
+                  "rationale": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "multi_jd_conflict": {
+          "type": "object",
+          "required": ["conflicting_directives", "proposed_resolution", "rationale"],
+          "additionalProperties": false,
+          "properties": {
+            "conflicting_directives": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["jd_a", "jd_b", "conflict_summary"],
+                "additionalProperties": false,
+                "properties": {
+                  "jd_a": { "type": "string" },
+                  "jd_b": { "type": "string" },
+                  "conflict_summary": { "type": "string" }
+                }
+              }
+            },
+            "proposed_resolution": { "type": "string", "enum": ["master_with_jd_specific", "branch_versions", "accept_compromise"] },
+            "rationale": { "type": "string" }
+          }
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "description": "Job lifecycle state per ARCHITECTURE.md §6 + Wave 4 Step C state machine. Initialized to current_state='tailored' on completion; mutated by PATCH /api/runs/{run_id}/lifecycle.",
+      "required": ["current_state", "events"],
+      "properties": {
+        "current_state": {
+          "type": "string",
+          "enum": ["tailored", "applied", "oa", "interview", "rejected", "offer", "archived", "dismissed"],
+          "description": "Latest state the run entered. Equal to events[-1].state."
+        },
+        "events": {
+          "type": "array",
+          "description": "Append-only history of lifecycle transitions. First entry is the initial 'tailored' record.",
+          "items": {
+            "type": "object",
+            "required": ["state", "timestamp"],
+            "properties": {
+              "state": {
+                "type": "string",
+                "enum": ["tailored", "applied", "oa", "interview", "rejected", "offer", "archived", "dismissed"]
+              },
+              "timestamp": { "type": "string", "format": "date-time" },
+              "note": { "type": "string" },
+              "channel": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

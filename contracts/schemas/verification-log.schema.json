@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/verification-log.schema.json",
+  "title": "Pass 3 Verification Log",
+  "description": "Per-run append-only log of user decisions against unsourced claims surfaced by the Pass 3 verifier. Persisted to data/users/<user_id>/runs/<run_id>/verification_log.json by POST /api/runs/{run_id}/verify-claim (Wave 4 D.5). Each entry records one decision; the log is the source of truth for whether all unsourced claims have been decided (which unlocks state.verdict flip from partial_pending_user → complete).",
+  "type": "object",
+  "required": ["run_id", "events"],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": { "type": "string", "format": "uuid" },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["decided_at", "bullet_id", "claim_index", "claim_snapshot", "decision"],
+        "additionalProperties": false,
+        "properties": {
+          "decided_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "UTC ISO 8601 timestamp at which the user submitted this decision."
+          },
+          "bullet_id": {
+            "type": "string",
+            "description": "References Pass3Bullet.bullet_id in runs/<run_id>/pass3.json."
+          },
+          "claim_index": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Zero-based index into Pass3Bullet.unsourced_claims for the targeted bullet at the time the user submitted the decision."
+          },
+          "claim_snapshot": {
+            "type": "string",
+            "description": "The literal claim text at decision time. Snapshotted so the log is auditable independent of pass3.json mutations."
+          },
+          "decision": {
+            "type": "string",
+            "enum": ["approve", "reject", "edit"],
+            "description": "approve = user verified the claim is grounded; reject = user agrees claim is unsourced and the .tex should not be submitted as-is; edit = user wants the claim text changed. D.5 MVP records intent only — automatic .tex patching is a follow-up."
+          },
+          "edited_text": {
+            "type": "string",
+            "description": "Required when decision = edit. Replacement text the user wants substituted into the bullet."
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional free-text note from the user explaining the decision."
+          }
+        }
+      }
+    }
+  }
+}

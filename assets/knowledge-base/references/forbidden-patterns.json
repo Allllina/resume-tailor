@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.1.1",
+  "sources": [
+    "assets/knowledge-base/references/workflow/quality-pass.md#pass-2",
+    "assets/knowledge-base/references/general-rules.md"
+  ],
+  "categories": {
+    "ai_punctuation": [
+      {"pattern": "——", "match_type": "literal", "replacement": "：或，", "rationale": "AI 偏好的破折号在中文 BA 简历中读起来生硬"},
+      {"pattern": "→", "match_type": "literal", "replacement": "或具名步骤词", "rationale": "ASCII 箭头是 LLM 偏好，不符合中文资料风格"}
+    ],
+    "colloquial": [
+      {"pattern": "押注", "match_type": "literal", "replacement": "布局", "rationale": "金融术语滥用，咨询 / BA 语境不合"},
+      {"pattern": "切入证据", "match_type": "literal", "replacement": "入手 / 起始依据", "rationale": "LLM 自造词，业内不通用"}
+    ],
+    "consultant_report_framing": [
+      {"pattern": "客户表面诉求是 X，实质为 Y", "match_type": "literal", "replacement": "直接陈述项目目标", "rationale": "汇报口吻对实习简历过 senior，反而显得空"}
+    ],
+    "llm_fabricated": [
+      {"pattern": "分析显示", "match_type": "literal", "replacement": "依据 X 数据 / X 框架推断", "rationale": "LLM herald 短语，缺具体 anchor"},
+      {"pattern": "结果表明", "match_type": "literal", "replacement": "X 数据 / X 指标显示", "rationale": "同上"}
+    ]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/competency-model.schema.json",
+  "title": "Role Competency Model (9-section)",
+  "description": "9-section structured competency model produced by the role-competency-extractor (see packages/strategy-modules/role-competency-extractor/output-schema.md for content rules; this schema asserts top-level shape only). Wave 4 Step B: backend-only — content is prose-checked, not schema-checked.",
+  "type": "object",
+  "required": [
+    "section_a_role_definition",
+    "section_b_core_hiring_logic",
+    "section_c_qualification_model",
+    "section_d_keyword_architecture",
+    "section_e_shared_patterns",
+    "section_f_hidden_screening",
+    "section_g_market_interpretation",
+    "section_h_strategy_implications",
+    "section_i_limitations_confidence",
+    "flat_summary"
+  ],
+  "properties": {
+    "section_a_role_definition": { "type": "string", "description": "3-5 sentence role briefing." },
+    "section_b_core_hiring_logic": { "type": "array", "description": "4-6 priority items, ordered highest-to-lowest." },
+    "section_c_qualification_model": {
+      "type": "object",
+      "description": "Three-tier qualification model (must-have / strongly-preferred / nice-to-have).",
+      "properties": {
+        "tier_1_must_have": { "type": "array" },
+        "tier_2_strongly_preferred": { "type": "array" },
+        "tier_3_nice_to_have": { "type": "array" }
+      }
+    },
+    "section_d_keyword_architecture": {
+      "type": "object",
+      "description": "5-tier ATS / AI keyword architecture (per workflow/keyword-extraction.md).",
+      "properties": {
+        "tier_1_core_role": { "type": "array", "items": { "type": "string" } },
+        "tier_2_capability": { "type": "array", "items": { "type": "string" } },
+        "tier_3_tools_methods": { "type": "array", "items": { "type": "string" } },
+        "tier_4_action_verbs": { "type": "array", "items": { "type": "string" } },
+        "tier_5_semantic_equivalents": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "section_e_shared_patterns": { "type": ["object", "string"], "description": "Cross-company consensus + company-specific variations (single-JD analysis: stub object/string)." },
+    "section_f_hidden_screening": { "type": "array", "description": "3-5 inferred hidden screening criteria with JD evidence." },
+    "section_g_market_interpretation": { "type": ["object", "string"], "description": "Market-specific interpretation (north-america / mainland-china / hong-kong)." },
+    "section_h_strategy_implications": {
+      "type": "object",
+      "description": "Resume strategy guidance (emphasize / de-emphasize / top-half / keyword placement / common mistakes).",
+      "properties": {
+        "emphasize_most": { "type": "string" },
+        "de_emphasize": { "type": "string" },
+        "top_half_content": { "type": "string" },
+        "natural_keyword_placement": { "type": "string" },
+        "common_mistakes": { "type": ["array", "string"] }
+      }
+    },
+    "section_i_limitations_confidence": {
+      "type": "object",
+      "description": "Limitations + confidence level. Mandatory even at high confidence.",
+      "required": ["confidence"],
+      "properties": {
+        "summary": { "type": "string" },
+        "confidence": { "type": "string", "enum": ["high", "moderate", "low"] }
+      }
+    },
+    "flat_summary": {
+      "type": "object",
+      "description": "Flat-field summary aligned with job-score.schema.json for downstream type validation.",
+      "required": ["confidence"],
+      "properties": {
+        "primary_lens": { "type": "string" },
+        "role_family": { "type": "string" },
+        "target_market": { "type": "string" },
+        "confidence": { "type": "string", "enum": ["high", "moderate", "low"] },
+        "competency_tags": { "type": "array", "items": { "type": "string" } },
+        "evidence_requirements": { "type": "array", "items": { "type": "string" } },
+        "scoring_notes": { "type": "string" }
+      }
+    },
+    "_method": {
+      "type": "string",
+      "enum": ["llm", "llm_partial", "fallback_no_llm"],
+      "description": "How this model was produced. 'llm' = full LLM-driven extraction; 'llm_partial' = LLM ran but some sections were missing and filled with placeholders; 'fallback_no_llm' = LLM unavailable / failed / returned malformed JSON."
+    }
+  }
+}

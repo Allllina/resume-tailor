@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Job Score Result",
+  "type": "object",
+  "required": [
+    "job_id",
+    "total_score",
+    "tier",
+    "matched_resume_version",
+    "dimensions",
+    "visa_risk",
+    "recommended_action"
+  ],
+  "properties": {
+    "job_id": {
+      "type": "string"
+    },
+    "total_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "resume_match_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "matched_resume_version": {
+      "type": "string"
+    },
+    "tier": {
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "dimensions": {
+      "type": "object",
+      "properties": {
+        "skill_match": {
+          "type": "number"
+        },
+        "experience_relevance": {
+          "type": "number"
+        },
+        "industry_fit": {
+          "type": "number"
+        },
+        "level_match": {
+          "type": "number"
+        },
+        "location_preference": {
+          "type": "number"
+        },
+        "growth_potential": {
+          "type": "number"
+        },
+        "ats_pass_likelihood": {
+          "type": "number"
+        }
+      }
+    },
+    "visa_risk": {
+      "enum": [
+        "clear",
+        "generic_authorized_neutral",
+        "sponsor_positive",
+        "blocked",
+        "unknown"
+      ]
+    },
+    "tier_reason": {
+      "type": "string"
+    },
+    "recommended_action": {
+      "enum": [
+        "auto_light_tailor",
+        "deep_review",
+        "skip",
+        "manual_review"
+      ]
+    }
+  }
+}

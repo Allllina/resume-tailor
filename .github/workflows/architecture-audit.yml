@@ -1,0 +1,29 @@
+name: architecture-audit
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  audit:
+    name: scripts/architecture_audit.py (informational)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need tags + history for commit_stats
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No deps required — script is stdlib-only.
+      - name: Run audit
+        run: python3 scripts/architecture_audit.py
+
+      # NOT --fail-on-violations yet. Phase 1: surface findings to PR
+      # description / Actions tab so reviewers can see the trend.
+      # Phase 2 (after the existing 1 RED is cleared): add the flag.

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/resume-optimizer/contracts/schemas/experience.schema.json",
+  "title": "Experience Index",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "experiences"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "source_of_truth": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "experiences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "company",
+          "role",
+          "source_file",
+          "capability_tags",
+          "role_family_relevance",
+          "resume_versions"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          },
+          "source_file": {
+            "type": "string"
+          },
+          "one_line": {
+            "type": "string"
+          },
+          "capability_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "role_family_relevance": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "proof_strength": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "resume_versions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "truth_constraints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

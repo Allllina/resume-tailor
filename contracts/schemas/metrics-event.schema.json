@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/metrics-event.schema.json",
+  "title": "Metrics Event",
+  "description": "Per ARCHITECTURE.md §15. Every action in the Harness layer emits one event. Aggregated for dashboards + Wave 5 feedback loop.",
+  "type": "object",
+  "required": ["event_id", "timestamp", "category", "metric_name", "value", "context"],
+  "properties": {
+    "event_id": { "type": "string", "format": "uuid" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "run_id": { "type": "string", "format": "uuid" },
+    "category": {
+      "type": "string",
+      "enum": ["task_effectiveness", "quality_of_service", "resource_efficiency", "security_compliance"]
+    },
+    "metric_name": {
+      "type": "string",
+      "enum": [
+        "task_success",
+        "pass3_pass",
+        "tier_assignment_correct",
+        "master_selection_correct",
+        "end_to_end_latency_ms",
+        "time_to_first_action_ms",
+        "stage_error",
+        "token_consumed",
+        "claude_api_call",
+        "tool_call",
+        "policy_denial",
+        "pii_leak",
+        "truthfulness_violation",
+        "rate_limit_violation"
+      ]
+    },
+    "value": {
+      "oneOf": [
+        { "type": "number" },
+        { "type": "boolean" },
+        { "type": "string" }
+      ]
+    },
+    "unit": {
+      "type": "string",
+      "description": "ms / tokens / count / usd / boolean"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "stage": {
+          "type": "string",
+          "enum": ["perception", "planning", "action", "feedback"]
+        },
+        "tier": { "type": "integer", "enum": [1, 2, 3] },
+        "lens": { "type": "string" },
+        "master_resume": { "type": "string" },
+        "experience_id": { "type": "string" },
+        "policy_id": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

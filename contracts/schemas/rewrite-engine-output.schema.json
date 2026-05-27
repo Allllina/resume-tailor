@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/rewrite-engine-output.schema.json",
+  "title": "Resume Rewrite Engine Output (10-section A-J)",
+  "description": "10-section structured rewrite product produced by harness.rewrite.engine (Wave 4 D.2a). Mirrors packages/strategy-modules/resume-rewrite-engine/output-schema.md but flattened to snake_case keys for the harness layer. This schema asserts top-level shape only; per-section content rules are enforced upstream by the LLM prompts and downstream by Pass 3 (D.4).",
+  "type": "object",
+  "required": [
+    "section_a_fit_diagnosis",
+    "section_b_priority_signals",
+    "section_c_experience_prioritization",
+    "section_d_resume_narrative",
+    "section_e_cross_company_variations",
+    "section_f_section_by_section_guidance",
+    "section_g_bullets",
+    "section_h_resume_structure",
+    "section_i_final_resume_draft",
+    "section_j_decision_log"
+  ],
+  "properties": {
+    "section_a_fit_diagnosis": {
+      "type": "string",
+      "description": "Fit diagnosis prose (1-6 sentences). Honest, specific, lens-aware."
+    },
+    "section_b_priority_signals": {
+      "type": "array",
+      "description": "Priority signals for the top-half of page one. Items: {name, where, why}."
+    },
+    "section_c_experience_prioritization": {
+      "type": "object",
+      "description": "4-category bucketing of experiences (must_lead_and_expand / keep_but_compress / retain_as_supporting_signal / downgrade_or_remove). Each bucket is a list of experience_ids."
+    },
+    "section_d_resume_narrative": {
+      "type": "string",
+      "description": "1-3 sentence narrative recommendation."
+    },
+    "section_e_cross_company_variations": {
+      "type": ["string", "object"],
+      "description": "Cross-company consensus / variations. D.2a is single-JD MVP; this section is a stub."
+    },
+    "section_f_section_by_section_guidance": {
+      "type": "object",
+      "description": "Per-section keep/cut/emphasize decisions. D.2a leaves this as a stub; future waves populate."
+    },
+    "section_g_bullets": {
+      "type": "array",
+      "description": "Rewritten bullets for retained experiences (Cat 1/2/3). Each item: {id, text, claimed_facts, experience_id, final_category, disambiguator_parenthetical?}.",
+      "items": {
+        "type": "object",
+        "required": ["id", "text", "claimed_facts", "experience_id", "final_category"],
+        "properties": {
+          "id": { "type": "string" },
+          "text": { "type": "string" },
+          "claimed_facts": { "type": "array", "items": { "type": "string" } },
+          "experience_id": { "type": "string" },
+          "final_category": { "type": "integer", "enum": [1, 2, 3] },
+          "disambiguator_parenthetical": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "section_h_resume_structure": {
+      "type": "object",
+      "description": "Resume structure recommendation (section ordering, summary inclusion, skills handling). D.2a stub."
+    },
+    "section_i_final_resume_draft": {
+      "type": "string",
+      "description": "Plain-text final resume draft consumed by the LaTeX renderer. D.2a leaves this empty; loop wiring (D.2b) merges Section G into the master template."
+    },
+    "section_j_decision_log": {
+      "type": "array",
+      "description": "Per-experience decision entries. D.2a minimal stub: {experience_id, decision, rationale}.",
+      "items": {
+        "type": "object",
+        "required": ["experience_id", "decision", "rationale"],
+        "properties": {
+          "experience_id": { "type": "string" },
+          "decision": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "_method": {
+      "type": "string",
+      "enum": ["llm", "llm_partial", "fallback_no_llm", "skipped_tier_1"],
+      "description": "How this output was produced. 'llm' = full LLM-driven rewrite; 'llm_partial' = some LLM responses recovered with best-effort defaults; 'fallback_no_llm' = LLM transport failure (timeout / circuit / connection); 'skipped_tier_1' = tier_assigned == 1; engine deliberately did no work."
+    }
+  }
+}

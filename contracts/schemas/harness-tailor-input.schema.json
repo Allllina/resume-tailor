@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/harness-tailor-input.schema.json",
+  "title": "Harness Tailor Input",
+  "description": "JD ingestion contract for Mode A (auto pipeline) and Mode B (manual customize). Consumed by Harness REPL container at the Perception stage.",
+  "type": "object",
+  "required": ["mode", "jd", "candidate_profile_ref", "target_market"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["auto", "manual"],
+      "description": "auto = Mode A pipeline (Tier 1 fast lane); manual = Mode B wizard with override at every step"
+    },
+    "jd": {
+      "type": "object",
+      "required": ["source", "raw_text"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["paste", "url", "scraper"],
+          "description": "Provenance of JD text"
+        },
+        "url": { "type": "string", "format": "uri" },
+        "scraper_id": {
+          "type": "string",
+          "description": "If source=scraper, the extractor name (boss / lagou / niuke / etc.)"
+        },
+        "raw_text": { "type": "string", "minLength": 50 },
+        "scraped_at": { "type": "string", "format": "date-time" },
+        "company_hint": { "type": "string" },
+        "role_title_hint": { "type": "string" },
+        "location_hint": { "type": "string" }
+      }
+    },
+    "candidate_profile_ref": {
+      "type": "string",
+      "description": "Path to user-profile.md (default: assets/profile/user-profile.md)"
+    },
+    "target_market": {
+      "type": "string",
+      "enum": ["north-america", "mainland-china", "hong-kong"],
+      "description": "Market context for resume localization (per market-contexts/*.md)"
+    },
+    "lens_hint": {
+      "type": "string",
+      "enum": ["A_strategy_research", "B_data_analytics", "C_product_ops", "D_finance_markets", "HC_human_capital", "auto"],
+      "description": "Optional override of auto-routing"
+    },
+    "tier_override": {
+      "type": "integer",
+      "enum": [1, 2, 3],
+      "description": "Optional Tier override for important targets"
+    },
+    "submit_channel_preference": {
+      "type": "string",
+      "enum": ["manual", "browser_agent", "email", "ask_user"],
+      "default": "ask_user"
+    },
+    "budget": {
+      "type": "object",
+      "description": "Resource limits for this run (per HARNESS_DESIGN §11)",
+      "properties": {
+        "token_budget": { "type": "integer", "default": 30000 },
+        "time_budget_seconds": { "type": "integer", "default": 300 },
+        "claude_call_budget": { "type": "integer", "default": 20 }
+      }
+    }
+  }
+}

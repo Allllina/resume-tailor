@@ -1,0 +1,74 @@
+[
+  {
+    "scenario_id": "mck-strategy-na",
+    "lens": "A_strategy_research",
+    "target_market": "north-america",
+    "role_title": "Strategy Consultant — Senior Associate",
+    "company_hint": "McKinsey & Company",
+    "jd_text": "McKinsey & Company is a global management consulting firm. We are the trusted advisor to the world's leading businesses, governments, and institutions. We work with leading organizations across the private, public and social sectors. Our scale, scope, and knowledge allow us to address problems that no one else can.\n\nYou will work with C-suite executives to solve their most complex problems. Key responsibilities include: \n- Leading teams of 3-5 consultants to deliver strategic projects across various industries including Tech, Retail, and Healthcare.\n- Developing structured problem-solving frameworks and conducting rigorous quantitative and qualitative analysis to identify root causes.\n- Synthesizing complex data into actionable recommendations for senior leadership, ensuring alignment with long-term goals.\n- Managing client relationships and ensuring high-quality project delivery under tight deadlines.\n- Mentoring junior associates and contributing to the firm's knowledge base.\n\nQualifications:\n- MBA or advanced degree from a top-tier institution.\n- 3-5 years of experience in management consulting, corporate strategy, or a high-growth startup environment.\n- Proven track record of structured thinking, quantitative analysis, and leadership.\n- Excellent communication and presentation skills in English, with the ability to influence senior stakeholders.\n- Strong collaborative skills and the ability to work effectively in cross-functional, global teams.",
+    "expected_competitiveness": "above_mid"
+  },
+  {
+    "scenario_id": "stripe-data-na",
+    "lens": "B_data_analytics",
+    "target_market": "north-america",
+    "role_title": "Data Scientist — Product Analytics",
+    "company_hint": "Stripe",
+    "jd_text": "Stripe is a technology company that builds economic infrastructure for the internet. Businesses of every size—from new startups to public companies—use our software to accept payments and manage their businesses online. We are looking for a Data Scientist to join our Product Analytics team to help us understand our users and optimize our product experience.\n\nResponsibilities:\n- Partner with Product Managers and Engineers to define product metrics and drive data-informed decisions across the product lifecycle.\n- Design and analyze A/B tests to evaluate new features and product changes, ensuring statistical rigor.\n- Build and maintain scalable dashboards using Tableau and SQL to track performance and provide insights.\n- Conduct deep-dive analyses to identify growth opportunities and user pain points.\n- Communicate findings to stakeholders across the organization to influence product roadmaps.\n- Contribute to the development of internal data infrastructure and best practices.\n\nRequirements:\n- 4+ years of experience in data science, product analytics, or a similar quantitative role at a tech company.\n- Proficiency in SQL and R or Python for data manipulation and statistical analysis.\n- Strong understanding of statistical concepts, experimental design, and A/B testing.\n- Experience with visualization tools like Tableau or Looker, and the ability to tell stories with data.\n- Excellent problem-solving skills and ability to thrive in a fast-paced environment.",
+    "expected_competitiveness": "high"
+  },
+  {
+    "scenario_id": "btd-pm-cn",
+    "lens": "C_product_ops",
+    "target_market": "mainland-china",
+    "role_title": "高级产品经理 - 抖音海外版",
+    "company_hint": "ByteDance",
+    "jd_text": "字节跳动成立于2012年，是一家技术驱动的移动互联网公司，我们的使命是“激发创造，丰富生活”。抖音（TikTok）是目前全球最受欢迎的短视频社交平台，正在改变人们记录和分享生活的方式。我们正在寻找一名极具洞察力和执行力的高级产品经理加入抖音海外版团队，负责核心业务的功能迭代和用户持续增长。在这个角色中，你将有机会参与到影响全球数亿用户的产品决策中，挑战最具复杂性的全球化业务场景。\n\n职责描述：\n- 负责抖音海外版（TikTok）核心功能的产品定义、需求分析及原型设计，确保产品逻辑严密且符合当地文化习惯。\n- 深入洞察不同国家和地区的用户需求差异，通过 A/B 测试和精细化数据分析，持续优化产品体验和核心指标（如 DAU、留存率、使用时长）。\n- 作为产品负责人，与研发、设计、运营及法务合规等团队紧密配合，确保产品保质保量上线，并根据上线后的多维度反馈快速进行版本迭代。\n- 积极探索 AI 技术（特别是 AIGC）在短视频场景的创新应用，如智能脚本生成、AI 虚拟特效、自动化内容分发等，旨在提升内容生产效率和用户互动的活跃度。\n- 持续关注全球互联网竞争对手动态和行业前沿趋势，输出深度分析报告，协助制定长期的产品规划和差异化竞争策略。\n- 建立并完善跨国团队的协作机制，提升产品研发效率和响应速度。\n\n任职要求：\n- 本科及以上学历，拥有5年以上互联网产品工作经验，有成功的海外产品落地经验或知名社交产品背景者优先考虑。\n- 具备优秀的逻辑思维、严谨的数据分析能力和敏锐的产品洞察力，能够独立负责复杂且高并发的业务模块。\n- 熟练掌握敏捷开发流程，具备卓越的项目管理能力 and 跨团队、跨文化沟通协作能力。\n- 对 AIGC、机器学习等 AI 领域有浓厚兴趣或实际项目实践经验，能够前瞻性地将 AI 技术转化为实际的产品竞争力。\n- 英语流利，能够作为日常及商务工作的官方语言，有海外留学或工作背景者尤佳。\n- 抗压能力强，能够适应快速变化的行业环境和高强度的工作节奏。",
+    "expected_competitiveness": "mid"
+  },
+  {
+    "scenario_id": "hsbc-po-hk",
+    "lens": "C_product_ops",
+    "target_market": "hong-kong",
+    "role_title": "Digital Product Owner — Wealth Management",
+    "company_hint": "HSBC",
+    "jd_text": "HSBC is a global financial services leader. Our Digital Wealth team in Hong Kong is transforming how clients manage their wealth through innovative and user-friendly digital solutions. We are seeking a Digital Product Owner to lead the development of our next-generation investment platform.\n\nKey Responsibilities:\n- Define the product vision and roadmap for digital wealth products, aligning with business objectives and market needs.\n- Lead a high-performing, cross-functional squad of developers and designers using Agile methodologies.\n- Write clear user stories and acceptance criteria, and manage the product backlog to ensure impactful features are prioritized.\n- Collaborate with stakeholders across Legal and Compliance to ensure all products meet regulatory requirements.\n- Utilize data and analytics tools to monitor performance and identify opportunities for improvement.\n\nRequirements:\n- 5+ years of experience in digital product management, preferably within financial services or Fintech.\n- Proven track record of delivering complex digital products from conception to launch in an Agile environment.\n- Strong domain knowledge of wealth management products, including equities and insurance.\n- Excellent stakeholder management skills with the ability to navigate a global organization.\n- Fluency in English is essential; knowledge of Cantonese or Mandarin is advantageous.",
+    "expected_competitiveness": "below_mid"
+  },
+  {
+    "scenario_id": "gs-ib-na",
+    "lens": "D_finance_markets",
+    "target_market": "north-america",
+    "role_title": "Investment Banking Associate — TMT",
+    "company_hint": "Goldman Sachs",
+    "jd_text": "The Investment Banking Division of Goldman Sachs provides investment banking services to corporations and financial institutions. We are seeking an Associate to join our Technology, Media and Telecommunications (TMT) group in New York, one of the most active teams advising on complex transactions in the sector.\n\nResponsibilities:\n- Assist in the execution of advisory and financing transactions, including M&A, IPOs, and private placements.\n- Perform financial modeling and valuation analysis, including DCF, LBO, and comparable company analysis.\n- Prepare high-quality pitch books and presentations for client meetings.\n- Manage due diligence processes, coordinating with legal and accounting advisors.\n- Mentor and supervise analysts within the TMT team.\n- Conduct industry research and stay abreast of market trends in the TMT sector.\n\nQualifications:\n- MBA from a top-tier business school or 3+ years of experience as an Investment Banking Analyst.\n- Deep understanding of financial statements, corporate finance theory, and accounting principles.\n- Advanced proficiency in Excel for sophisticated financial modeling.\n- Strong analytical, communication, and interpersonal skills, with the ability to interact with senior clients.\n- Exceptional attention to detail and ability to manage multiple projects under tight deadlines.\n- A strong work ethic and a commitment to excellence in a high-pressure environment.",
+    "expected_competitiveness": "above_mid"
+  },
+  {
+    "scenario_id": "ms-equity-hk",
+    "lens": "D_finance_markets",
+    "target_market": "hong-kong",
+    "role_title": "Equity Research Analyst — APAC Internet",
+    "company_hint": "Morgan Stanley",
+    "jd_text": "Morgan Stanley is a leading global financial services firm providing investment banking, securities, and wealth management services. Our Equity Research team provides analysis of companies and industries to help clients make investment decisions. We are looking for an Analyst to cover the APAC Internet sector in Hong Kong.\n\nKey Responsibilities:\n- Conduct fundamental, bottom-up research of internet and technology companies across the APAC region, including Alibaba and Tencent.\n- Build and maintain detailed financial models and valuation frameworks for covered companies.\n- Write and publish research reports, thematic notes, and company updates for institutional clients.\n- Communicate investment ideas and sector views to sales teams and external investors.\n- Monitor industry trends and regulatory changes affecting the APAC internet sector.\n- Participate in industry conferences and management meetings to gather insights.\n\nRequirements:\n- 2-4 years of experience in equity research, investment banking, or corporate finance, covering the internet or tech sectors.\n- Exceptional financial modeling and valuation skills, with proficiency in Excel.\n- Excellent written and verbal communication skills in English; proficiency in Mandarin is a strong requirement.\n- Deep intellectual curiosity about the internet industry and a passion for equity investing.\n- High level of integrity, attention to detail, and ability to work independently in a fast-paced environment.",
+    "expected_competitiveness": "low"
+  },
+  {
+    "scenario_id": "mercer-hr-cn",
+    "lens": "HC_human_capital",
+    "target_market": "mainland-china",
+    "role_title": "咨询顾问 - 组织与人力资源咨询",
+    "company_hint": "Mercer",
+    "jd_text": "美世（Mercer）是全球领先的咨询公司，在健康、财富和职业领域为客户提供服务。我们通过重新定义职场、重塑退休及投资结果，并释放人才潜力，来构建更加美好的未来。我们正在寻找一名咨询顾问加入上海办公室，负责组织与人力资源咨询业务。作为美世的一员，你将与行业专家并肩作战，为跨国公司及本土大型企业提供极具价值的战略建议，帮助其在快速变化的市场环境中保持组织敏捷性与人才竞争优势。\n\n职责描述：\n- 深度参与并支持各种组织与人力资源咨询项目，包括组织架构优化设计、岗位价值评估体系建设、全面薪酬体系设计及长期激励机制优化等。\n- 独立进行行业深度调研、标杆企业对比分析以及海量数据处理，为客户提供具有前瞻性和竞争力的市场洞察与管理策略建议。\n- 协助项目经理撰写高质量的咨询报告、解决方案及客户沟通建议书，并积极参与向客户高层进行的汇报与交流。\n- 与跨部门、跨区域的团队通力协作，确保咨询项目的高标准、高效率交付，并致力于维护长期、稳固的客户合作关系。\n- 支持办公室的业务开发活动，包括准备技术方案、参与投标建议书的撰写以及支持商务洽谈过程。\n- 持续沉淀行业知识，参与公司内部的方法论迭代与知识库建设，不断提升团队的专业服务水平。\n\n任职要求：\n- 本科及以上学历，人力资源管理、组织心理学、工商管理（MBA）或相关专业优先考虑。\n- 拥有3-5年知名管理咨询公司或大型集团公司人力资源部门的相关工作经验，深度熟悉现代薪酬福利管理及绩效评价体系。\n- 具备出色的逻辑思维能力、敏锐的问题发现能力、卓越的数据处理能力以及扎实的文字表达功底。\n- 良好的项目管理能力和多任务处理能力，能够在高压力和紧迫的时间节点下保持高质量的产出。\n- 英语流利（听、说、读、写），能熟练使用 Excel 和 PowerPoint 进行专业演示。\n- 拥有优秀的团队合作精神和人际沟通技巧，能够快速融入多元化的工作环境，具有较强的学习能力和适应能力。",
+    "expected_competitiveness": "mid"
+  },
+  {
+    "scenario_id": "bcg-ct-cn",
+    "lens": "A_strategy_research",
+    "target_market": "mainland-china",
+    "role_title": "Case Team Leader",
+    "company_hint": "BCG",
+    "jd_text": "波士顿咨询公司（BCG）是一家全球性的管理咨询公司，是世界领先的商业战略顾问。我们与来自私营、公共和非营利部门的领导者合作，共同应对其最严峻的挑战。作为 Case Team Leader (CTL)，您将是 BCG 项目团队的核心引擎，不仅负责驱动项目的高质量执行，还肩负着培养下一代咨询人才的重任。在 BCG，你将接触到最前沿的商业问题，并与全球最优秀的头脑共同创造深远的影响。\n\n职责描述：\n- 领导由 2-4 名顾问组成的咨询团队，执行复杂的战略项目，业务涵盖市场进入战略、数字化转型、组织变革管理、大型并购后整合等前沿领域。\n- 负责项目的端到端全流程管理，包括准确界定商业问题、构建逻辑严密的分析框架、指导团队进行深度数据挖掘及访谈，并最终制定可落地的战略建议。\n- 与客户的中高层管理人员建立并维护深厚的信任关系，作为其可靠的业务伙伴，确保项目建议能够真正转化为客户的业务价值和可持续增长。\n- 深度负责团队成员的指导与培训，通过日常反馈、职业生涯讨论等方式，加速顾问的能力提升和职业成长。\n- 积极参与 BCG 的全球知识库建设、行业专题研究及内部管理流程的优化，提升团队整体解决问题的效能。\n- 在复杂的利益相关者环境中游刃有余，协调公司资源以支持项目成功交付，并能在压力下保持卓越的决策质量。\n\n任职要求：\n- MBA或相关专业硕士及以上学历，且具有顶尖战略咨询公司（MBB）的持续工作经验及卓越表现记录。\n- 拥有 5-7 年在战略咨询、企业战略发展部或相关领域的实战经验，具备处理复杂商业问题的深厚功底。\n- 卓越的领导力、团队管理能力和结构化解决问题的能力，能够激发团队潜能并达成高难度目标。\n- 极强的沟通影响力与人际交往能力，能够有效影响高层决策并管理复杂的客户预期。\n- 中英文表达极其流畅，可作为专业工作语言，能够适应全球化视野下的高强度出差环境和快节奏工作挑战。\n- 具备极强的商业好奇心和持续学习的动力，能够快速掌握新行业的专业知识，拥有追求卓越的职业态度。",
+    "expected_competitiveness": "high"
+  }
+]

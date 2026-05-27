@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobsearch-ops-agent/contracts/additional-questions.schema.json",
+  "title": "Additional Questions YAML",
+  "description": "Pre-filled answers for repeated form questions across LinkedIn / Workday / etc submit forms. Loaded by all submitters at start of batch run. Idea borrowed from EasyApplyJobsBot (license-checked, pattern only).",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string", "default": "0.1.0" },
+    "candidate_authorization": {
+      "type": "object",
+      "properties": {
+        "us_work_authorized": { "type": "boolean" },
+        "us_visa_sponsorship_required": { "type": "boolean" },
+        "uk_work_authorized": { "type": "boolean" },
+        "cn_work_authorized": { "type": "boolean" }
+      }
+    },
+    "compensation": {
+      "type": "object",
+      "properties": {
+        "expected_salary_currency": { "type": "string", "enum": ["USD", "CNY", "GBP", "EUR", "HKD", "SGD"] },
+        "expected_salary_amount": { "type": "number" },
+        "salary_negotiable": { "type": "boolean" }
+      }
+    },
+    "experience": {
+      "type": "object",
+      "properties": {
+        "years_relevant": { "type": "number" },
+        "willing_to_relocate": { "type": "boolean" },
+        "earliest_start_date": { "type": "string", "format": "date" },
+        "notice_period_weeks": { "type": "number" }
+      }
+    },
+    "demographics_optional": {
+      "type": "object",
+      "description": "EEO / diversity self-report. All optional. Default to 'prefer_not_to_say' or omit.",
+      "properties": {
+        "gender": { "type": "string" },
+        "ethnicity": { "type": "string" },
+        "veteran_status": { "type": "string" },
+        "disability_status": { "type": "string" }
+      }
+    },
+    "custom": {
+      "type": "object",
+      "description": "Free-form key/value for site-specific questions not covered above. e.g. { 'how_did_you_hear': 'LinkedIn search', 'github_url': 'https://github.com/...' }",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "required": ["schema_version"],
+  "additionalProperties": false
+}

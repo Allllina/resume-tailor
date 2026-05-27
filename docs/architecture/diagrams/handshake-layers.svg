@@ -1,0 +1,79 @@
+<svg width="600" height="500" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions for colors and gradients -->
+  <defs>
+    <style>
+      .layer-box { fill: #f8fafc; stroke: #64748b; stroke-width: 2; }
+      .text-main { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; fill: #1e293b; }
+      .text-label { font-family: monospace; font-size: 12px; fill: #475569; }
+      .status-ok { fill: #10b981; } /* Emerald */
+      .status-partial { fill: #f59e0b; } /* Amber */
+      .status-missing { fill: #ef4444; } /* Red */
+      .arrow { fill: none; stroke: #94a3b8; stroke-width: 2; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <!-- Layers -->
+  
+  <!-- PRODUCT -->
+  <rect x="200" y="20" width="200" height="40" rx="4" class="layer-box" />
+  <text x="300" y="45" text-anchor="middle" class="text-main" font-weight="bold">PRODUCT (user)</text>
+
+  <!-- L4 Arrow -->
+  <line x1="300" y1="60" x2="300" y2="100" class="arrow" />
+  <text x="310" y="85" class="text-label">L4: visual preview + acceptance</text>
+  <circle cx="450" cy="81" r="6" class="status-missing" />
+  <text x="465" y="86" class="text-label">🔴</text>
+
+  <!-- FRONTEND -->
+  <rect x="200" y="100" width="200" height="40" rx="4" class="layer-box" />
+  <text x="300" y="125" text-anchor="middle" class="text-main" font-weight="bold">FRONTEND (UI)</text>
+
+  <!-- L2/L1 Arrow -->
+  <line x1="300" y1="140" x2="300" y2="200" class="arrow" />
+  <text x="310" y="160" class="text-label">L2: TS types (generated)</text>
+  <circle cx="450" cy="156" r="6" class="status-ok" />
+  <text x="465" y="161" class="text-label">✅</text>
+  
+  <text x="310" y="180" class="text-label">L1: contracts/schemas/*.json</text>
+  <circle cx="450" cy="176" r="6" class="status-ok" />
+  <text x="465" y="181" class="text-label">✅</text>
+
+  <!-- BACKEND -->
+  <rect x="200" y="200" width="200" height="40" rx="4" class="layer-box" />
+  <text x="300" y="225" text-anchor="middle" class="text-main" font-weight="bold">BACKEND (harness)</text>
+
+  <!-- L0 Arrow -->
+  <line x1="300" y1="240" x2="300" y2="280" class="arrow" />
+  <text x="310" y="265" class="text-label">L0: pydantic / dataclass shapes</text>
+  <circle cx="450" cy="261" r="6" class="status-ok" />
+  <text x="465" y="266" class="text-label">✅</text>
+
+  <!-- TESTS -->
+  <rect x="200" y="280" width="200" height="40" rx="4" class="layer-box" />
+  <text x="300" y="305" text-anchor="middle" class="text-main" font-weight="bold">TESTS (fixtures)</text>
+
+  <!-- L3 Arrow (Bidirectional) -->
+  <line x1="300" y1="320" x2="300" y2="380" class="arrow" />
+  <path d="M 300 320 L 295 330 L 305 330 Z" fill="#94a3b8" />
+  <text x="310" y="355" class="text-label">L3: shared example fixtures</text>
+  <circle cx="450" cy="351" r="6" class="status-partial" />
+  <text x="465" y="356" class="text-label">🟡</text>
+
+  <!-- SUBAGENTS -->
+  <rect x="200" y="380" width="200" height="40" rx="4" class="layer-box" />
+  <text x="300" y="405" text-anchor="middle" class="text-main" font-weight="bold">SUBAGENTS</text>
+
+  <!-- Legend -->
+  <rect x="20" y="440" width="560" height="40" rx="4" fill="#f1f5f9" stroke="#e2e8f0" />
+  <circle cx="40" cy="460" r="6" class="status-ok" />
+  <text x="55" y="465" class="text-main">✅ Shipped</text>
+  <circle cx="160" cy="460" r="6" class="status-partial" />
+  <text x="175" y="465" class="text-main">🟡 Partial</text>
+  <circle cx="280" cy="460" r="6" class="status-missing" />
+  <text x="295" y="465" class="text-main">🔴 Missing</text>
+  <text x="420" y="465" class="text-main" font-style="italic">Handshake Architecture Layers</text>
+
+</svg>
