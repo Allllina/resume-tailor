@@ -32,7 +32,17 @@ jobs:
       - name: Install harness (editable)
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[dev]" || pip install -e .
+          # [verifier] pulls langgraph so tests/integration/test_pass3_real_grounding.py
+          # (the real Pass-3 grounding suite) can import harness.verify.build_graph.
+          pip install -e ".[dev,verifier]" || pip install -e ".[dev]" || pip install -e .
+
+      # Seed gitignored asset paths (assets/experience-bank/index.json, raw/, …)
+      # from the anonymized *.sample fixtures. Required first-time setup per the
+      # Makefile — tests + production planning read index.json directly, and the
+      # real file is gitignored as PII, so a fresh CI checkout has none.
+      - name: Seed sample data
+        working-directory: ${{ github.workspace }}
+        run: python3 scripts/seed_sample.py
 
       - name: Run pytest
         env:
