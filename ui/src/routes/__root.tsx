@@ -57,7 +57,8 @@ function RootBody() {
       ) : (
         <Outlet />
       )}
-      <Toaster richColors closeButton position="bottom-right" />
+      {/* top-right keeps toasts away from the floating composer (bottom-right) */}
+      <Toaster richColors closeButton position="top-right" />
     </>
   );
 }

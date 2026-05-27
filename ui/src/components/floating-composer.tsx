@@ -85,7 +85,7 @@ export function FloatingComposer() {
     <div className="fixed bottom-6 right-6 z-30">
       <div
         className={`rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-200 ${
-          open ? "w-[480px]" : "w-[300px] h-14"
+          open ? "w-[min(480px,calc(100vw-3rem))]" : "w-[min(300px,calc(100vw-3rem))] h-14"
         }`}
         style={open ? { minHeight: 160 } : undefined}
       >
@@ -120,15 +120,15 @@ export function FloatingComposer() {
                 </div>
               </div>
             ) : is503LlmDown ? (
-              <div className="flex items-start gap-2 rounded-md border border-error/30 bg-error/5 px-2.5 py-2">
-                <span className="mt-0.5 h-3.5 w-3.5 shrink-0 text-error text-[11px] font-bold">!</span>
+              <div className="flex items-start gap-2 rounded-md border border-error/30 bg-error/5 px-2.5 py-2" role="alert">
+                <Loader2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-error opacity-70" aria-hidden />
                 <p className="flex-1 text-[11px] leading-relaxed text-foreground/85">
                   AI service is currently unavailable. Try again in a few minutes.
                 </p>
               </div>
             ) : is503SubSkill ? (
-              <div className="flex items-start gap-2 rounded-md border border-error/30 bg-error/5 px-2.5 py-2">
-                <span className="mt-0.5 h-3.5 w-3.5 shrink-0 text-error text-[11px] font-bold">!</span>
+              <div className="flex items-start gap-2 rounded-md border border-error/30 bg-error/5 px-2.5 py-2" role="alert">
+                <Loader2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-error opacity-70" aria-hidden />
                 <p className="flex-1 text-[11px] leading-relaxed text-foreground/85">
                   {String(
                     (mutationErr as ApiError).detailObj?.sub_skill ?? "A sub-skill"
@@ -150,10 +150,11 @@ export function FloatingComposer() {
                     key={m.value}
                     onClick={() => setMarketOverride(m.value)}
                     disabled={isPending}
-                    className={`h-7 px-2.5 rounded-md text-[11px] font-medium transition ${
+                    aria-pressed={market === m.value}
+                    className={`h-8 px-2.5 rounded-md text-[11px] font-medium transition cursor-pointer ${
                       market === m.value
                         ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/60"
                     }`}
                   >
                     {m.label}
@@ -164,7 +165,8 @@ export function FloatingComposer() {
                 onClick={handleSend}
                 disabled={sendDisabled}
                 title={knownHasNoResume ? "Upload a resume in /setup first" : undefined}
-                className="h-7 px-3 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
+                aria-label={isPending ? "Tailoring in progress" : knownHasNoResume ? "Upload a resume first" : "Send JD (Enter)"}
+                className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
               >
                 {isPending ? (
                   <>
@@ -172,7 +174,7 @@ export function FloatingComposer() {
                     Tailoring…
                   </>
                 ) : (
-                  <>Send ↵</>
+                  <span aria-hidden>Send ↵</span>
                 )}
               </button>
             </div>

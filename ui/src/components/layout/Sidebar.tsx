@@ -270,10 +270,15 @@ function MiniRun({ run, color }: { run: RunSummary; color: string }) {
   const title = [run.company_hint, run.role_title_hint].filter(Boolean).join(" · ") || "Untitled draft";
 
   return (
-    <div className="flex h-7 items-center gap-2 rounded-md px-2 text-xs text-foreground transition hover:bg-accent">
-      <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
+    <Link
+      to="/run/$id"
+      params={{ id: run.run_id }}
+      title={title}
+      className="flex h-7 items-center gap-2 rounded-md px-2 text-xs text-foreground transition hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+    >
+      <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: color }} aria-hidden />
       <span className="truncate">{title}</span>
-    </div>
+    </Link>
   );
 }
 
