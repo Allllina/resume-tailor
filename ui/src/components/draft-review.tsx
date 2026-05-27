@@ -246,40 +246,39 @@ function RunReviewWorkspace({
         </div>
       ) : null}
 
-      {/* RIGHT: expanded preview, or a thin "show preview" rail (desktop) */}
+      {/* RIGHT: when collapsed, show a narrow strip with expand icon at top */}
       {previewCollapsed ? (
-        <button
-          type="button"
-          onClick={() => setPreviewCollapsed(false)}
-          aria-label="Show preview"
-          title="Show preview"
-          className="hidden shrink-0 flex-col items-center justify-center gap-2 border-l border-border bg-card/30 px-2 py-4 text-[11px] font-medium text-muted-foreground transition hover:bg-card/60 hover:text-foreground lg:flex"
-        >
-          <PanelRightOpen className="h-4 w-4" />
-          <span className="[writing-mode:vertical-rl]">Preview</span>
-        </button>
+        <div className="hidden w-9 shrink-0 flex-col border-l border-border bg-card/30 pt-2 lg:flex">
+          <button
+            type="button"
+            onClick={() => setPreviewCollapsed(false)}
+            aria-label="Show preview"
+            title="Show preview"
+            className="mx-auto flex h-7 w-7 items-center justify-center rounded text-muted-foreground/50 transition hover:text-foreground"
+          >
+            <PanelRightOpen className="h-4 w-4" />
+          </button>
+        </div>
       ) : null}
 
       <section
         className={
           previewCollapsed
             ? "min-h-0 overflow-auto bg-card/30 px-7 py-5 lg:hidden"
-            : "min-h-0 flex-1 overflow-auto bg-card/30 px-7 py-5"
+            : "relative min-h-0 flex-1 overflow-auto bg-card/30 px-7 py-5"
         }
       >
+        {/* Collapse icon — top-left corner, desktop only, no text/border */}
+        <button
+          type="button"
+          onClick={() => setPreviewCollapsed(true)}
+          aria-label="Collapse preview"
+          title="Collapse preview"
+          className="absolute left-3 top-3 hidden h-7 w-7 items-center justify-center rounded text-muted-foreground/50 transition hover:text-foreground lg:flex"
+        >
+          <PanelRightClose className="h-4 w-4" />
+        </button>
         <div className="mx-auto max-w-3xl">
-          <div className="mb-3 hidden justify-end lg:flex">
-            <button
-              type="button"
-              onClick={() => setPreviewCollapsed(true)}
-              aria-label="Collapse preview"
-              title="Collapse preview"
-              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-card px-2.5 text-[11px] font-medium text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
-            >
-              <PanelRightClose className="h-3.5 w-3.5" />
-              Collapse
-            </button>
-          </div>
           <TexPreview draftId={draftId} artifactAvailable={data ? hasTexArtifact(data) : undefined} embedded />
         </div>
       </section>
