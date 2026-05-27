@@ -446,7 +446,9 @@ const env = (typeof import.meta !== "undefined" ? import.meta.env : {}) as Recor
 >;
 
 export const API_BASE = env.VITE_API_BASE ?? "http://127.0.0.1:8001";
-export const USE_MOCK = (env.VITE_USE_MOCK ?? "true") === "true";
+// Default to real backend. Set VITE_USE_MOCK=true only for UI-only dev
+// when no harness backend is running.
+export const USE_MOCK = (env.VITE_USE_MOCK ?? "false") === "true";
 
 // ============ Real client ============
 
