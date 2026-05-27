@@ -32,8 +32,8 @@ import {
 import { resetUserId } from "@/lib/user";
 import {
   LENSES,
-  LENS_DESCRIPTIONS_EN,
   LENS_LABELS_ZH,
+  LENS_PLACEHOLDERS,
   type Lens,
   type TargetMarket,
 } from "@/lib/api";
@@ -396,72 +396,105 @@ function DirectionsEditor({
   onSave: () => void;
   saving: boolean;
 }) {
-  const toggleSecondary = (lens: Lens) => {
-    if (secondary.includes(lens)) {
-      setSecondary(secondary.filter((l) => l !== lens));
-    } else {
-      setSecondary([...secondary, lens]);
-    }
+  const addSecondary = () => {
+    const available = LENSES.filter((l) => l !== primary && !secondary.includes(l));
+    if (available.length > 0) setSecondary([...secondary, available[0]]);
   };
+
+  const removeSecondary = (idx: number) => {
+    setSecondary(secondary.filter((_, i) => i !== idx));
+  };
+
+  const updateSecondary = (idx: number, lens: Lens) => {
+    const next = [...secondary];
+    next[idx] = lens;
+    setSecondary(next);
+  };
+
+  const availableForMore = LENSES.filter((l) => l !== primary && !secondary.includes(l));
+  const canAddMore = secondary.length < 3 && availableForMore.length > 0;
 
   return (
     <div className="rounded-lg border border-border bg-card/50 px-3 py-3 space-y-3">
+      {/* Primary */}
       <div>
-        <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-          Primary
+        <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          Primary direction
         </p>
-        <div className="mt-1.5 grid grid-cols-1 gap-1.5">
-          {LENSES.map((lens) => (
-            <label
-              key={`primary-${lens}`}
-              className={`flex items-center gap-2 rounded border px-2.5 py-1.5 cursor-pointer text-xs transition ${
-                primary === lens
-                  ? "border-primary bg-primary/5"
-                  : "border-border bg-card hover:border-foreground/20"
-              }`}
-            >
-              <input
-                type="radio"
-                name="primary-edit"
-                checked={primary === lens}
-                onChange={() => setPrimary(lens)}
-                className="h-3 w-3 accent-[var(--primary)]"
-              />
-              <span className="font-medium text-foreground">{LENS_LABELS_ZH[lens]}</span>
-              <span className="text-muted-foreground truncate">
-                — {LENS_DESCRIPTIONS_EN[lens]}
-              </span>
-            </label>
-          ))}
-        </div>
+        <Select value={primary ?? ""} onValueChange={(v) => setPrimary(v as Lens)}>
+          <SelectTrigger className="h-9 text-sm">
+            <SelectValue placeholder="Choose a primary direction…" />
+          </SelectTrigger>
+          <SelectContent>
+            {LENSES.map((lens) => (
+              <SelectItem key={lens} value={lens}>
+                {LENS_LABELS_ZH[lens]}
+              </SelectItem>
+            ))}
+            <div className="px-2 py-1.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground select-none">
+              Coming soon
+            </div>
+            {LENS_PLACEHOLDERS.map((p) => (
+              <SelectItem key={p.id} value={p.id} disabled>
+                {p.label_en}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
+      {/* Secondary */}
       <div>
-        <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-          Secondary (optional)
+        <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          Secondary directions (optional)
         </p>
-        <div className="mt-1.5 grid grid-cols-1 gap-1.5">
-          {LENSES.filter((l) => l !== primary).map((lens) => (
-            <label
-              key={`sec-${lens}`}
-              className={`flex items-center gap-2 rounded border px-2.5 py-1.5 cursor-pointer text-xs transition ${
-                secondary.includes(lens)
-                  ? "border-primary bg-primary/5"
-                  : "border-border bg-card hover:border-foreground/20"
-              }`}
-            >
-              <input
-                type="checkbox"
-                checked={secondary.includes(lens)}
-                onChange={() => toggleSecondary(lens)}
-                className="h-3 w-3 accent-[var(--primary)]"
-              />
-              <span className="font-medium text-foreground">{LENS_LABELS_ZH[lens]}</span>
-              <span className="text-muted-foreground truncate">
-                — {LENS_DESCRIPTIONS_EN[lens]}
-              </span>
-            </label>
+        <div className="space-y-1.5">
+          {secondary.map((lens, idx) => (
+            <div key={idx} className="flex items-center gap-1.5">
+              <div className="flex-1">
+                <Select value={lens} onValueChange={(v) => updateSecondary(idx, v as Lens)}>
+                  <SelectTrigger className="h-9 text-sm">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {LENSES.filter(
+                      (l) => l !== primary && (!secondary.includes(l) || l === lens),
+                    ).map((l) => (
+                      <SelectItem key={l} value={l}>
+                        {LENS_LABELS_ZH[l]}
+                      </SelectItem>
+                    ))}
+                    <div className="px-2 py-1.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground select-none">
+                      Coming soon
+                    </div>
+                    {LENS_PLACEHOLDERS.map((p) => (
+                      <SelectItem key={p.id} value={p.id} disabled>
+                        {p.label_en}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <button
+                type="button"
+                onClick={() => removeSecondary(idx)}
+                aria-label="Remove this secondary direction"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
           ))}
+          {canAddMore ? (
+            <button
+              type="button"
+              onClick={addSecondary}
+              className="flex h-9 w-full items-center justify-center gap-1.5 rounded-md border border-dashed border-border text-xs text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add secondary direction
+            </button>
+          ) : null}
         </div>
       </div>
 

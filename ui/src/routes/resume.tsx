@@ -109,28 +109,30 @@ function ResumePage() {
           title="Resume bank"
           subtitle="One master resume and the lens-routed variants the tailoring engine can start from."
         />
-        <div className="mt-8 rounded-lg border border-dashed border-border bg-card/40 px-8 py-12 text-center">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <FileText className="h-4 w-4" />
-          </span>
-          <h2
-            className="mt-4 text-lg text-foreground"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            No resume uploaded yet
-          </h2>
-          <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-muted-foreground">
-            Drop your resume below to start tailoring. Accepted: .md · .tex · .docx · .pdf
-          </p>
-          <div className="mx-auto mt-5 max-w-md text-left">
-            <ResumeUpload />
+        <div className="mt-8">
+          <div className="mb-5 text-center">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <FileText className="h-4 w-4" />
+            </span>
+            <h2
+              className="mt-4 text-lg text-foreground"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              No resume uploaded yet
+            </h2>
+            <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-muted-foreground">
+              Drop your resume below to start tailoring. Accepted: .md · .tex · .docx · .pdf
+            </p>
           </div>
-          <Link
-            to="/setup"
-            className="mt-4 inline-block text-xs text-muted-foreground hover:text-foreground"
-          >
-            Or use the full setup wizard →
-          </Link>
+          <ResumeUpload />
+          <div className="mt-4 text-center">
+            <Link
+              to="/setup"
+              className="text-xs text-muted-foreground hover:text-foreground"
+            >
+              Or use the full setup wizard →
+            </Link>
+          </div>
         </div>
       </div>
     );

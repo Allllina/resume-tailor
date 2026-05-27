@@ -33,7 +33,7 @@ const MARKET_OPTIONS: Array<{ id: TargetMarket; label: string; sub: string }> = 
   },
   {
     id: "north-america",
-    label: "North America (US / Canada)",
+    label: "US — North America",
     sub: "Resume in English · 1-page convention, no photo, action-verb bullets",
   },
   {
