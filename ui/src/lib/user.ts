@@ -5,7 +5,7 @@
  * as the `X-User-Id` header on every backend fetch. The backend
  * namespaces all storage under `data/users/{user_id}/` (ADR 0004).
  *
- * - MVP/self-hosted default: use "jingwen-default" in the browser too so
+ * - MVP/self-hosted default: use "default" in the browser too so
  *   seeded data remains visible after hydration.
  * - Set VITE_ENABLE_MULTI_USER=true to restore browser-generated UUIDs.
  * - The "rt:" prefix matches existing localStorage keys
@@ -13,7 +13,7 @@
  */
 
 const USER_ID_KEY = "rt:user_id";
-const DEFAULT_USER_ID = "jingwen-default";
+const DEFAULT_USER_ID = "default";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined" && typeof localStorage !== "undefined";

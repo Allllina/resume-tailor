@@ -19,7 +19,7 @@ describe("getUserId", () => {
 
   it("defaults to the single-user MVP workspace", () => {
     const id = getUserId();
-    expect(id).toBe("jingwen-default");
+    expect(id).toBe("default");
     expect(localStorage.getItem("rt:user_id")).toBeNull();
   });
 

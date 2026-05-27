@@ -398,7 +398,7 @@ function LensMasterRow({
   const userIdHeader = (): string =>
     (typeof localStorage !== "undefined"
       ? localStorage.getItem("rt:user_id")
-      : null) ?? "jingwen-default";
+      : null) ?? "default";
 
   const triggerBlobDownload = (blob: Blob, filename: string) => {
     const url = URL.createObjectURL(blob);
