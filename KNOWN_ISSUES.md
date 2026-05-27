@@ -11,6 +11,14 @@ do not block the core flow.
   `503 unavailable` state (not a crash). Install Docker or TeX Live to enable
   in-app PDF preview.
 
+## First-run gotcha
+
+- **The JD composer Send button is disabled until you complete Setup.** `make seed-sample` copies
+  the sample asset files into place, but the backend's user data directory is only initialised when
+  you actually upload a resume through the Setup wizard (Step 1). Open `/setup`, upload your resume
+  (or the seeded sample at `assets/profile/user-profile.sample.md`), and the Send button will
+  become active. This is by design — the system needs at least a resume to tailor against.
+
 ## Functional gaps (non-blocking)
 
 - `jd_total_score` (the 7-dimension composite JD score) is not yet computed
