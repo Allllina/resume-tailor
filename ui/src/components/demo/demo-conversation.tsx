@@ -21,7 +21,7 @@ import { DEMO_HERO_SUMMARY, DEMO_JD_TEXT } from "./demo-data";
 
 const MARKETS = [
   { value: "mainland-china", label: "CN" },
-  { value: "north-america", label: "NA" },
+  { value: "north-america", label: "US" },
   { value: "hong-kong", label: "HK" },
 ] as const;
 

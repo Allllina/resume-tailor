@@ -73,42 +73,55 @@ function ExperiencesPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-8 py-10">
-      <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-            Source pool · {total} experiences · {scored}/{Math.max(total, 1)} scored
-          </p>
-          <h1
-            className="mt-1 text-3xl text-foreground"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            Experience bank
-          </h1>
-          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Each experience is scored against the five lenses. Darker cells indicate stronger
-            lens coverage for routing and rewrite support.
-          </p>
-        </div>
-        <div className="w-full md:w-96">
-          <ExperiencesUpload compact />
-        </div>
+      <header>
+        <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+          Source pool · {total} experiences · {scored}/{Math.max(total, 1)} scored
+        </p>
+        <h1
+          className="mt-1 text-3xl text-foreground"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          Experience bank
+        </h1>
+        <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          Each experience is scored against the five role lenses — strategy, data, product, finance,
+          and talent. Stronger coverage means better evidence selection when the rewrite engine
+          routes a JD to that lens.
+        </p>
       </header>
 
       <div className="mt-8">
         {isLoading && items.length === 0 ? (
           <div className="h-40 animate-pulse rounded-lg bg-card/50" />
         ) : items.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-border bg-card/40 px-6 py-10 text-center">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-              <Library className="h-4 w-4" />
-            </span>
-            <p className="mt-3 text-sm text-foreground">No experiences yet</p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Drop one or more files above to start.
-            </p>
+          <div className="rounded-lg border border-dashed border-border bg-card/40 px-6 py-10">
+            <div className="mx-auto max-w-md text-center">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <Library className="h-4 w-4" />
+              </span>
+              <p className="mt-3 text-sm font-medium text-foreground">No experiences yet</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                Upload past role write-ups, project briefs, or internship reports — one file per
+                role works best. Each is auto-scored against the five lenses so the rewrite engine
+                can pull the strongest evidence for any JD. Supports{" "}
+                <span className="font-mono">.md</span> ·{" "}
+                <span className="font-mono">.tex</span> ·{" "}
+                <span className="font-mono">.docx</span> ·{" "}
+                <span className="font-mono">.pdf</span> — up to 2 MB each, 30 at once.
+              </p>
+              <div className="mt-5">
+                <ExperiencesUpload />
+              </div>
+            </div>
           </div>
         ) : (
-          <ExperienceCoverageTable items={items} />
+          <>
+            <ExperienceCoverageTable items={items} />
+            <div className="mt-6">
+              <p className="mb-2 text-xs text-muted-foreground">Add more experiences</p>
+              <ExperiencesUpload compact />
+            </div>
+          </>
         )}
       </div>
     </div>

@@ -6,7 +6,7 @@ import { ApiError, type TargetMarket } from "@/lib/api";
 
 const MARKETS: { value: TargetMarket; label: string }[] = [
   { value: "mainland-china", label: "CN" },
-  { value: "north-america", label: "NA" },
+  { value: "north-america", label: "US" },
   { value: "hong-kong", label: "HK" },
 ];
 

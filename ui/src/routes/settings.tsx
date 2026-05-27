@@ -47,7 +47,7 @@ export const Route = createFileRoute("/settings")({
 
 const MARKET_OPTIONS: { value: TargetMarket; label: string }[] = [
   { value: "mainland-china", label: "CN — Mainland China" },
-  { value: "north-america", label: "NA — North America" },
+  { value: "north-america", label: "US — North America" },
   { value: "hong-kong", label: "HK — Hong Kong" },
 ];
 
