@@ -55,12 +55,23 @@ function flattenClaims(
 }
 
 export function Pass3VerifyPanel({ runId }: Props) {
-  const { data, isLoading, isError, error } = usePass3(runId);
+  const { data, isLoading, isError, error, refetch } = usePass3(runId);
 
   if (isLoading) {
     return (
-      <section className="rounded-xl border border-attention/40 bg-attention/5 px-5 py-4">
-        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+      <section
+        className="rounded-xl border border-attention/40 bg-attention/5 px-5 py-6 motion-reduce:animate-none"
+        aria-busy="true"
+        aria-label="Loading Pass 3 review"
+      >
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin motion-reduce:animate-none" />
+          Loading truthfulness review…
+        </div>
+        <div className="mt-4 space-y-2">
+          <div className="h-10 animate-pulse rounded-md bg-background/60 motion-reduce:animate-none" />
+          <div className="h-10 animate-pulse rounded-md bg-background/60 motion-reduce:animate-none" />
+        </div>
       </section>
     );
   }
@@ -76,14 +87,28 @@ export function Pass3VerifyPanel({ runId }: Props) {
           <h3 className="text-sm font-semibold text-foreground">
             Pass 3 detail unavailable
           </h3>
-          <p className="mt-1 text-xs text-muted-foreground">
+          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
             The verifier flagged this run but the per-claim breakdown could
             not be loaded. Inspect the .tex by hand before submitting.
           </p>
         </section>
       );
     }
-    return null;
+    return (
+      <section className="rounded-xl border border-error/30 bg-error/5 px-5 py-4">
+        <h3 className="text-sm font-semibold text-foreground">Could not load Pass 3 review</h3>
+        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+          {(error as Error)?.message ?? "Unknown error"}
+        </p>
+        <button
+          type="button"
+          onClick={() => void refetch()}
+          className="mt-3 inline-flex h-11 min-h-11 items-center rounded-md border border-border bg-card px-4 text-xs font-medium transition hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
+        >
+          Retry
+        </button>
+      </section>
+    );
   }
 
   const flat = flattenClaims(data.bullets, data.verification_log.events);

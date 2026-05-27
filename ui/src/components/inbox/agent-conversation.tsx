@@ -109,8 +109,8 @@ export function InboxV2Conversation({
   const recent = runs.slice(0, 3).slice().reverse();
 
   return (
-    <section className="flex min-h-0 flex-col bg-card/50">
-      <header className="flex items-center gap-2.5 border-b border-border px-5 py-3.5">
+    <section className="flex min-h-0 flex-col bg-card/50 max-lg:min-h-[42vh]">
+      <header className="flex items-center gap-2.5 border-b border-border px-4 py-3.5 sm:px-5">
         <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-primary/[0.14] text-primary">
           <Sparkles className="h-3.5 w-3.5" />
         </span>
@@ -176,9 +176,13 @@ export function InboxV2Conversation({
         ) : localErr ? (
           <p className="mb-2 text-[11px] text-error">{localErr}</p>
         ) : mutationErr && !showResumeHint ? (
-          <p className="mb-2 text-[11px] text-error">
+          <p className="mb-2 text-[11px] leading-relaxed text-error" role="alert">
             {mutationErr instanceof ApiError
-              ? (mutationErr.detail ?? mutationErr.message)
+              ? mutationErr.status === 503 || /llm|anthropic|openai|unavailable/i.test(
+                    mutationErr.detail ?? mutationErr.message,
+                  )
+                ? "LLM is unavailable — check packages/harness/.env and the sidebar health pill."
+                : (mutationErr.detail ?? mutationErr.message)
               : (mutationErr as Error).message}
           </p>
         ) : null}
@@ -227,7 +231,8 @@ export function InboxV2Conversation({
               onClick={handleSend}
               disabled={sendDisabled}
               title={knownHasNoResume ? "Upload a resume in /setup first" : undefined}
-              className="inline-flex h-7 items-center gap-1.5 rounded-md bg-primary px-3 text-[11px] font-medium text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+              aria-disabled={sendDisabled}
+              className="inline-flex h-11 min-h-11 items-center gap-1.5 rounded-md bg-primary px-3 text-[11px] font-medium text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
             >
               {isPending ? (
                 <>

@@ -163,7 +163,7 @@ function SetupWizard() {
 
   return (
     <div className="min-h-screen bg-background bg-grain">
-      <header className="border-b border-border bg-background/80 px-6 py-4 backdrop-blur">
+      <header className="border-b border-border bg-background/80 px-4 py-4 backdrop-blur sm:px-6">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
           <Link to="/" className="text-xs text-muted-foreground transition hover:text-foreground">
             ← Inbox
@@ -172,8 +172,8 @@ function SetupWizard() {
         </div>
       </header>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-6 py-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside className="lg:sticky lg:top-8 lg:self-start">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-[280px_minmax(0,1fr)]">
+        <aside className="overflow-x-auto lg:sticky lg:top-8 lg:self-start lg:overflow-visible">
           <div>
             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
               Resume Tailor

@@ -106,10 +106,10 @@ function Inbox() {
   // Full-width two-pane workspace: dense list (left) + agent conversation
   // (right). The app's left sidebar is supplied by AppShell.
   return (
-    <div className="grid h-screen min-h-0 grid-cols-1 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
-      {/* LEFT — dense, status-grouped run list */}
-      <section className="flex min-h-0 flex-col border-r border-border">
-        <header className="border-b border-border bg-background/80 px-6 pb-3 pt-4 backdrop-blur">
+    <div className="grid h-[100dvh] min-h-0 grid-cols-1 lg:h-screen lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
+      {/* LEFT — dense run list (stacks above agent on mobile) */}
+      <section className="flex min-h-0 flex-col border-r border-border max-lg:border-r-0 max-lg:border-b">
+        <header className="border-b border-border bg-background/80 px-4 pb-3 pt-4 backdrop-blur sm:px-6">
           <div className="flex items-end justify-between gap-4">
             <div className="min-w-0">
               <p className="text-[10.5px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
@@ -185,7 +185,7 @@ function Inbox() {
         </div>
       </section>
 
-      {/* RIGHT — agent conversation surface + sticky composer */}
+      {/* RIGHT — agent conversation + sticky composer */}
       <InboxV2Conversation runs={allRuns} userInitials={userInitials} />
     </div>
   );
@@ -203,9 +203,9 @@ function initialsFor(name?: string): string {
 
 function LoadingSkeleton() {
   return (
-    <div className="space-y-2 px-3 pt-4">
+    <div className="space-y-2 px-3 pt-4 motion-reduce:animate-none" aria-busy="true" aria-label="Loading runs">
       {[0, 1, 2, 3, 4].map((i) => (
-        <div key={i} className="h-9 animate-pulse rounded-md bg-card/60" />
+        <div key={i} className="h-11 animate-pulse rounded-md bg-card/60 motion-reduce:animate-none" />
       ))}
     </div>
   );
@@ -216,8 +216,9 @@ function ErrorState({ message, onRetry }: { message: string; onRetry: () => void
     <div className="mx-6 mt-6 rounded-2xl border border-border bg-card/40 px-6 py-8 text-center">
       <p className="text-sm text-error">{message}</p>
       <button
+        type="button"
         onClick={onRetry}
-        className="mt-3 inline-flex h-8 items-center rounded-md border border-border bg-card px-3 text-xs font-medium transition hover:border-foreground/20"
+        className="mt-3 inline-flex h-11 min-h-11 items-center rounded-md border border-border bg-card px-4 text-xs font-medium transition hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         Retry
       </button>
@@ -235,12 +236,12 @@ function EmptyInbox() {
         I'm watching, no JDs yet.
       </h2>
       <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-        Paste a JD into the agent on the right, or take the 2-minute setup so I can use your real
+        Paste a JD in the tailoring agent below, or finish the 2-minute setup so I can use your real
         experience bank.
       </p>
       <Link
         to="/setup"
-        className="group mt-5 inline-flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-xs font-medium text-primary-foreground transition hover:bg-primary/90"
+        className="group mt-5 inline-flex h-11 min-h-11 items-center gap-2 rounded-lg bg-primary px-4 text-xs font-medium text-primary-foreground transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         Get started
         <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />

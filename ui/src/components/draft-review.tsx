@@ -70,8 +70,8 @@ export function DraftReview({ draftId }: Props) {
   const lastEvent = lifecycle?.events?.[lifecycle.events.length - 1];
 
   return (
-    <main className="flex h-screen min-h-0 flex-col bg-background">
-      <header className="flex items-center gap-4 border-b border-border bg-background/85 px-6 py-3">
+    <main className="flex min-h-[100dvh] flex-col bg-background lg:h-screen">
+      <header className="flex flex-wrap items-center gap-3 border-b border-border bg-background/85 px-4 py-3 sm:gap-4 sm:px-6">
         <a href="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground transition hover:text-foreground">
           <ChevronRight className="h-3 w-3 rotate-180" />
           Inbox
@@ -103,6 +103,8 @@ export function DraftReview({ draftId }: Props) {
           message={error?.message ?? "Failed to load run."}
           onRetry={() => void refetch()}
         />
+      ) : isLoading && !data ? (
+        <RunDetailLoadingSkeleton />
       ) : (
         <RunReviewWorkspace
           draftId={draftId}
@@ -561,13 +563,24 @@ function DegradationsList({ events }: { events: DegradationEvent[] }) {
   );
 }
 
+function RunDetailLoadingSkeleton() {
+  return (
+    <div className="flex min-h-0 flex-1 flex-col gap-4 px-4 py-6 sm:px-6 motion-reduce:animate-none" aria-busy="true" aria-label="Loading run">
+      <div className="h-24 animate-pulse rounded-xl bg-card/60 motion-reduce:animate-none" />
+      <div className="h-40 animate-pulse rounded-xl bg-card/60 motion-reduce:animate-none" />
+      <div className="h-64 flex-1 animate-pulse rounded-xl bg-card/60 motion-reduce:animate-none" />
+    </div>
+  );
+}
+
 function ErrorBlock({ message, onRetry }: { message: string; onRetry: () => void }) {
   return (
-    <div className="mt-6 rounded-2xl border border-border bg-card/40 px-6 py-8 text-center">
+    <div className="mx-4 mt-6 rounded-2xl border border-border bg-card/40 px-6 py-8 text-center sm:mx-6">
       <p className="text-sm text-error">{message}</p>
       <button
+        type="button"
         onClick={onRetry}
-        className="mt-3 inline-flex h-8 items-center rounded-md border border-border bg-card px-3 text-xs font-medium hover:border-foreground/20 transition"
+        className="mt-3 inline-flex h-11 min-h-11 items-center rounded-md border border-border bg-card px-4 text-xs font-medium transition hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         Retry
       </button>
@@ -740,14 +753,16 @@ function TexPreview({
             <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
           </div>
         ) : pdfState === "error" ? (
-          <div className="px-6 py-10 text-center">
-            <p className="text-sm font-medium text-foreground">PDF 预览暂不可用</p>
+          <div className="px-4 py-10 text-center sm:px-6">
+            <p className="text-sm font-medium text-foreground">PDF preview unavailable</p>
             <p className="mx-auto mt-1.5 max-w-md text-xs leading-relaxed text-muted-foreground">
-              {pdfErrorMsg ?? "Compile failed."}
+              {pdfErrorMsg?.includes("503") || /unavailable|docker|tex/i.test(pdfErrorMsg ?? "")
+                ? "Install Docker or TeX Live for in-app PDF preview (see KNOWN_ISSUES.md). Your .tex file is still available below."
+                : (pdfErrorMsg ?? "Compile failed.")}
             </p>
             <p className="mt-3 text-xs text-muted-foreground">
-              用上方 <span className="text-foreground">Download .tex</span> 拿源文件，或
-              <span className="text-foreground"> Open PDF</span> 重试。
+              Use <span className="text-foreground">Download .tex</span> above, or{" "}
+              <span className="text-foreground">Open PDF</span> to retry after fixing the toolchain.
             </p>
           </div>
         ) : (

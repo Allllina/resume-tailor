@@ -2,7 +2,7 @@
 
 A self-hosted, bring-your-own-data AI resume tailoring tool. You bring your resume and experiences; the tool analyses job descriptions, diagnoses fit, generates a tailored resume with quality passes, and flags any AI-fabricated claims for your review before you submit.
 
-**Runs entirely on your own machine.** No SaaS, no subscriptions — only your Anthropic API key.
+**Runs entirely on your own machine.** No SaaS, no subscriptions — only your LLM API key.
 
 ---
 
@@ -23,7 +23,7 @@ Output: a `.tex` artifact (PDF preview available with Docker/TeX Live — see [K
 
 - Python 3.11+
 - Node 18+
-- An Anthropic API key (`ANTHROPIC_API_KEY`)
+- An LLM API key (Anthropic recommended, or OpenAI-compatible proxy)
 - (Optional) Docker or TeX Live for PDF preview
 
 ---
@@ -42,15 +42,16 @@ make seed-sample
 # 3. Configure your LLM key
 cp packages/harness/.env.example packages/harness/.env
 # Edit packages/harness/.env and set:
-#   ANTHROPIC_API_KEY=sk-ant-...
+#   HARNESS_ANTHROPIC_API_KEY=sk-ant-...
+#   HARNESS_LLM_PROVIDER=anthropic
 #
-# Want to use a local proxy (LiteLLM / OpenAI-compatible / DeepSeek / Kimi /
-# 通义千问)? See the OpenAI block in .env.example.
+# Want to use a local proxy (LiteLLM / OpenAI-compatible / DeepSeek / Kimi)?
+# Set HARNESS_LLM_PROVIDER=openai and fill HARNESS_OPENAI_* in .env.example.
 
-# 4. Backend Python deps
+# 4. Backend Python deps (Python 3.11+ — on macOS use python3.11, not system 3.9)
 cd packages/harness
-python3 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
+python3.11 -m venv .venv && source .venv/bin/activate
+pip install -U pip && pip install -e ".[dev]"
 cd ../..
 
 # 5. Frontend deps
@@ -63,19 +64,28 @@ make ui          # http://localhost:8080
 
 Then open **http://localhost:8080** in your browser.
 
+### Important: enable tailoring (first run)
+
+`make seed-sample` copies anonymized files into `assets/`, but the backend only knows your account after **Setup step 1 — upload a resume** (even the sample file at `assets/profile/user-profile.sample.md` is fine). Until then, the JD **Send** button stays disabled.
+
+1. Open **http://localhost:8080/setup**
+2. Upload a resume (PDF, `.tex`, or `.md`)
+3. Complete direction + masters (or skip generation if you only want to smoke-test)
+4. Return to the inbox and paste a JD (at least ~50 characters)
+
 ---
 
 ## First-time flow
 
 1. **Setup** — upload your own resume and experiences, or edit the seeded sample files under `assets/profile/` and `assets/experience-bank/`. The system generates per-direction master resumes via LLM.
-2. **Paste a JD** — the floating composer sends the JD through the full pipeline.
+2. **Paste a JD** — the tailoring agent composer sends the JD through the full pipeline.
 3. **Inbox** — the tailored draft appears with fit diagnosis, rewrite output, and a truthfulness badge.
 4. **Run detail** — review the match matrix, dual HM/HRBP perspective, radar chart, and each AI-surfaced claim.
 5. **Pass 3 verify** — approve or reject each claim before downloading the `.tex`.
 
 ---
 
-## Bring your own data
+## Bring your own data (BYOD)
 
 `make seed-sample` copies the anonymized sample files into the real paths the app reads. You can then replace them with your actual data:
 
@@ -86,7 +96,23 @@ Then open **http://localhost:8080** in your browser.
 | `assets/experience-bank/raw.sample/*.md` | `assets/experience-bank/raw/*.md` | Detailed per-role experience files |
 | `assets/resume-bank/versions/*/resume.sample.zh.tex` | `resume.zh.tex` per version | Your base resume per direction |
 
-Your real data stays gitignored and never leaves your machine.
+Your real data stays gitignored and never leaves your machine. The public repo ships **samples only** — no personal resumes or run history.
+
+---
+
+## Troubleshooting
+
+| Symptom | What to check |
+|---|---|
+| **Send is disabled** on the inbox | Complete **Setup → upload resume** (see above). `seed-sample` alone is not enough. |
+| **Backend errors / no runs** | Is `make backend` running on `:8001`? Check the terminal for tracebacks. |
+| **LLM failures / degraded output** | `packages/harness/.env` — `HARNESS_ANTHROPIC_API_KEY` (or OpenAI-compatible vars). Sidebar shows LLM health when the UI can reach the API. |
+| **UI can't reach API** | Frontend expects backend at `http://127.0.0.1:8001` (default). Restart both `make backend` and `make ui`. |
+| **PDF preview blank or error** | PDF compile needs Docker or TeX Live. The app returns **503** with a clear message; **Download .tex** still works. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md). |
+| **Stale code after pull** | `make backend` kills any old listener on `:8001` before starting. Re-run `pip install -e ".[dev]"` if dependencies changed. |
+| **`pip install` / Python version errors** | Harness requires **Python 3.11+**. Create the venv with `python3.11 -m venv .venv` (see quickstart step 4). |
+
+Backend logs: the terminal where you ran `make backend`. User/run data lives under `data/` (gitignored).
 
 ---
 

@@ -16,8 +16,9 @@ do not block the core flow.
 - **The JD composer Send button is disabled until you complete Setup.** `make seed-sample` copies
   the sample asset files into place, but the backend's user data directory is only initialised when
   you actually upload a resume through the Setup wizard (Step 1). Open `/setup`, upload your resume
-  (or the seeded sample at `assets/profile/user-profile.sample.md`), and the Send button will
-  become active. This is by design — the system needs at least a resume to tailor against.
+  (or re-upload the seeded sample PDF / `.tex` / `.md`), and the Send button will become active.
+  This is by design — the system needs at least a resume to tailor against. The README quickstart
+  calls this out explicitly.
 
 ## Functional gaps (non-blocking)
 
@@ -29,6 +30,16 @@ do not block the core flow.
   existing local user data may need manual adjustment.
 - No `make doctor` health-check command yet — if setup fails, check the
   README troubleshooting section and backend logs.
+
+## Release smoke (`v1.0.0-public`, 2026-05-27)
+
+Fresh-clone quickstart was verified: `make seed-sample` → Python 3.11 venv → `pip install -e ".[dev]"` →
+`ui` `npm install` → `make backend` + resume upload via Setup/API → **one live JD** through
+`POST /api/tier1-tailor` (~60s). Run produced a reviewable `.tex` artifact (PDF preview returned **503**
+without Docker/TeX, as expected).
+
+If you skip master generation in Setup, the pipeline may finish with `degraded_to_manual` — still usable
+for reviewing diagnosis output, but complete Setup for best tailoring quality.
 
 ## Reporting
 
