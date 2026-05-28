@@ -19,7 +19,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? "github" : "html",
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:8080",
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:8083",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
@@ -29,7 +29,11 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
-  // Don't auto-spawn a webServer — assume the user runs `make ui` (Vite on :8080)
-  // and `make backend` (uvicorn on :8001) in separate terminals before testing.
-  // CI can override via webServer config when needed.
+  webServer: {
+    command: "npx vite dev --port 8083",
+    url: "http://127.0.0.1:8083",
+    reuseExistingServer: !process.env.CI,
+    stdout: "ignore",
+    stderr: "pipe",
+  },
 });
