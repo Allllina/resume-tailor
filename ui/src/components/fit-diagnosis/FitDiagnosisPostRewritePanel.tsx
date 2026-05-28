@@ -244,7 +244,7 @@ function HRBPCard({ hrbp }: { hrbp: FitDiagnosisPostRewrite["hrbp"] }) {
       className="rounded-lg border border-border/60 bg-background/40 px-5 py-4 space-y-3.5"
     >
       <header className="flex items-baseline gap-2">
-        <h3 className="text-base font-semibold text-foreground">HRBP</h3>
+        <h3 className="text-base font-semibold text-foreground">{zh ? "人力资源" : "HRBP"}</h3>
         <span className="font-mono text-[10px] text-muted-foreground">
           {zh ? "招聘筛选" : "Recruiter screen"}
         </span>
