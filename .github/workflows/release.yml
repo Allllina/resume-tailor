@@ -1,0 +1,36 @@
+name: release-automation
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: Draft Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Extract Changelog Section
+        id: extract_changelog
+        run: |
+          python3 scripts/extract_changelog.py "${{ github.ref_name }}" > release_body.txt
+          cat release_body.txt
+
+      - name: Create Draft Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          body_path: release_body.txt
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
