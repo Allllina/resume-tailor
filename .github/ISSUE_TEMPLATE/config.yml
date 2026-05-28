@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation & Quickstart
+    url: https://github.com/Allllina/resume-tailor/blob/main/README.md
+    about: Please read the README and quickstart documentation before raising an issue.
