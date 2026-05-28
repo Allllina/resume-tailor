@@ -1,7 +1,7 @@
 # Resume_Optimizer Makefile — common dev tasks.
 # Run from repo root.
 
-.PHONY: help status status-deep test test-harness test-quick lint backend ui clean seed-sample gen-types
+.PHONY: help status status-deep test test-harness test-quick lint backend ui clean seed-sample gen-types check-contracts
 
 help:
 	@echo "First-time setup:"
@@ -22,6 +22,7 @@ help:
 	@echo "  make test-harness  - Same as test (alias)"
 	@echo "  make test-quick    - Run unit tests only (skip integration)"
 	@echo "  make lint          - Run ruff + mypy on harness"
+	@echo "  make check-contracts - Run contract drift-gate checks"
 	@echo "  make clean         - Remove __pycache__ + .pytest_cache"
 
 status:
@@ -59,6 +60,9 @@ ui:
 lint:
 	cd packages/harness && PYTHONPATH=src .venv/bin/python -m ruff check src tests
 	cd packages/harness && PYTHONPATH=src .venv/bin/python -m mypy src --ignore-missing-imports
+
+check-contracts:
+	python3 scripts/check_contracts.py
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
