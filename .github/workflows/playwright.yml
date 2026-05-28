@@ -1,3 +1,13 @@
+# Playwright E2E Integration Gate.
+# Gated Specs:
+#   - ui/playwright/preview.spec.ts: Gated because it uses purely fixture-driven
+#     components on mock-only preview routes, requiring no active backend server.
+#
+# Excluded Specs:
+#   - ui/playwright/run-detail.spec.ts: Excluded because it performs full page loads
+#     on dynamic routes (/run/*) that require a live FastAPI backend to resolve API requests.
+#   - ui/playwright/visual-qa.spec.ts: Excluded because it performs visual regression testing
+#     which requires baseline screenshot comparisons managed interactively by humans.
 name: playwright
 
 on:
@@ -34,4 +44,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright Preview Test
+        # Run only the frontend-only preview.spec.ts.
+        # Other specs like run-detail.spec.ts require an active backend service.
         run: npx playwright test playwright/preview.spec.ts
+
