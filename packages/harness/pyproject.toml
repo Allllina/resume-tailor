@@ -39,7 +39,7 @@ dev = [
     "pytest-mock>=3.14",
     "ruff>=0.6",
     "mypy>=1.11",
-    "webdriver-manager>=4.0",
+    "webdriver-manager>=4.1.1",
 ]
 # Pass 3 / D.4 verifier subagent dependencies. Opt-in via
 # `pip install -e .[verifier]`. Kept optional so the Tier 1 PoC and tests
