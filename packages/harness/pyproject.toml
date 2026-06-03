@@ -46,7 +46,7 @@ dev = [
 # don't pay the install cost until the LangGraph claim-verifier lands.
 verifier = [
     "langgraph>=0.2",
-    "langchain-anthropic>=0.2",
+    "langchain-anthropic>=1.4.4",
 ]
 
 [tool.pytest.ini_options]
